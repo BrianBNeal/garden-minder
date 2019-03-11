@@ -1,7 +1,7 @@
 import React, { Component } from "react"
-import Nav from "./nav/Nav"
 import ApplicationViews from "./ApplicationViews"
 import UserManager from "../modules/UserManager"
+import Nav from "./Nav/Nav"
 
 export default class UserAccessLayer extends Component {
   state = {

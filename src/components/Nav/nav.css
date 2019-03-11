@@ -1,0 +1,8 @@
+.navbar {
+    background-color: white;
+}
+
+.logout-div {
+    display: flex;
+    flex-direction: row;
+}

@@ -16,6 +16,7 @@ export default class Login extends Component {
     this.setState(stateToChange)
   }
 
+
   handleRegister = e => {
     e.preventDefault()
     const newUser = {

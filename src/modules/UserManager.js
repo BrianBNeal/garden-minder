@@ -1,6 +1,7 @@
 import Settings from "./Settings"
+import DataManager from "./DataManager"
 
-export default Object.create(null, {
+export default Object.create(DataManager, {
   database: {
       value: "users"
   },
