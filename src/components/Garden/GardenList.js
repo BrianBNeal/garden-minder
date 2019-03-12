@@ -4,15 +4,16 @@ import GardenCard from "./GardenCard"
 export default class GardenList extends Component {
     render() {
         return (
-            <React.Fragment>
-                <h2>Garden List</h2>
-                <section>
-                    {this.props.gardens.map(garden => {
-                        return <GardenCard key={garden.id}
-                            garden={garden} />
-                    })}
-                </section>
-            </React.Fragment>
+            <section className="garden-list">
+                <h2>My Gardens</h2>
+                {this.props.gardens.map(garden => {
+                    return <GardenCard key={garden.id}
+                        history={this.props.history}
+                        garden={garden}
+                        gardenPlants={this.props.gardenPlants}
+                        plants={this.props.plants} />
+                })}
+            </section>
         )
     }
 }
