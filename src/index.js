@@ -1,9 +1,10 @@
+import { BrowserRouter as Router } from "react-router-dom"
+import GardenMinder from "./GardenMinder"
 import React from "react"
 import ReactDOM from "react-dom"
-import "./index.css"
-import GardenMinder from "./GardenMinder"
 import * as serviceWorker from "./serviceWorker"
-import { BrowserRouter as Router } from "react-router-dom"
+import "./index.css"
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 ReactDOM.render(
   <Router>

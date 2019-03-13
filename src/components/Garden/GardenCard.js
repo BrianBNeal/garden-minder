@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import { Card, CardText, CardBody, CardTitle, CardSubtitle } from 'reactstrap'
 import moment from "moment"
 import "./GardenCard.css"
 
@@ -14,13 +15,13 @@ export default class GardenCard extends Component {
 
         return (
             <React.Fragment>
-                <section className="card" onClick={() => this.props.history.push(`/gardens/${garden.id}`)}>
-                    <h4 className="card-title">{garden.name}</h4>
-                    <section className="plant-list">
-                        {plants.map(plant => <div key={plant.id}>{plant.name}</div>)}
-                        Created on {moment(garden.dateCreated).format("MMMM DD, YYYY")}
-                    </section>
-                </section>
+                <Card onClick={() => this.props.history.push(`/gardens/${garden.id}`)}>
+                    <CardBody>
+                        <CardTitle>{garden.name}</CardTitle>
+                        <CardSubtitle>Created on {moment(garden.dateCreated).format("MMMM DD, YYYY")}</CardSubtitle>
+                        <CardText>{plants.map(plant => <div key={plant.id}>{plant.name}</div>)}</CardText>
+                    </CardBody>
+                </Card>
             </React.Fragment>
         )
     }

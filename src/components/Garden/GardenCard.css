@@ -7,4 +7,5 @@
 .garden-list .card {
     width: 90%;
     margin-top: 25px;
+    cursor: pointer;
 }
