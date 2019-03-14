@@ -19,7 +19,7 @@ export default class GardenCard extends Component {
                     <CardBody>
                         <CardTitle>{garden.name}</CardTitle>
                         <CardSubtitle>Created on {moment(garden.dateCreated).format("MMMM DD, YYYY")}</CardSubtitle>
-                        <CardText>{plants.map(plant => <div key={plant.id}>{plant.name}</div>)}</CardText>
+                        {plants.map(plant => <CardText key={plant.id}>{plant.name}</CardText>)}
                     </CardBody>
                 </Card>
             </React.Fragment>

@@ -14,8 +14,8 @@ export default Object.create(null, {
         }
     },
     getAll: {
-        value: function (id) {
-            return fetch(`${Settings.remoteURL}/${this.database}?userId=${id}`).then(res => res.json())
+        value: function () {
+            return fetch(`${Settings.remoteURL}/${this.database}`).then(res => res.json())
         }
     }
 })
