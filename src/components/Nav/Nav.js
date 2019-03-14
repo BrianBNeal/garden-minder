@@ -20,7 +20,7 @@ export default class Nav extends Component {
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/">
+            <Link className="nav-link" to="/gardens/new">
               Create a Garden
             </Link>
           </li>

@@ -5,4 +5,5 @@
 .logout-div {
     display: flex;
     flex-direction: row;
+    padding-right: 10px;
 }

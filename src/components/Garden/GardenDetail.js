@@ -4,7 +4,7 @@ import {Button} from "reactstrap"
 
 export default class GardenDetail extends Component {
     render() {
-        const garden = this.props.gardens.find(garden => garden.id === parseInt(this.props.match.params.gardenId))
+        const garden = this.props.gardens.find(garden => (garden.id === parseInt(this.props.match.params.gardenId)))
         const plants = this.props.gardenPlants.filter(gp => gp.gardenId === garden.id)
             .map(gp =>
                 this.props.plants.find(
@@ -19,7 +19,7 @@ export default class GardenDetail extends Component {
                         plant={plant}
                     />
                 )}
-                        <Button color="warning" onClick={() => this.props.closeGarden(garden)}>Close Garden</Button>
+                        <Button color="warning" onClick={() => this.props.closeGarden(garden).then(() => this.props.history.push("/"))}>Close Garden</Button>
 
             </React.Fragment>
         )
