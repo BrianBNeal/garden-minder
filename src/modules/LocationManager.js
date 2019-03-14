@@ -3,7 +3,7 @@ import Settings from "./Settings"
 
 export default Object.create(DataManager, {
   database: {
-    value: "gardens"
+    value: "locations"
   },
   getAll: {
     value: function (id) {

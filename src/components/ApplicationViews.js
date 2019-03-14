@@ -2,14 +2,17 @@ import GardenDetail from "./Garden/GardenDetail"
 import GardenList from "./Garden/GardenList"
 import GardenManager from "../modules/GardenManager"
 import GardenPlantManager from "../modules/GardenPlantManager"
+import PlantDetail from "./Plant/PlantDetail"
 import PlantManager from "../modules/PlantManager"
 import React, { Component } from "react"
 import { Route } from "react-router-dom"
+import LocationManager from "../modules/LocationManager";
 
 export default class ApplicationViews extends Component {
   state = {
     gardens: [],
     gardenPlants: [],
+    locations: [],
     plants: []
   }
 
@@ -18,8 +21,9 @@ export default class ApplicationViews extends Component {
     const newState = {}
 
     GardenManager.getAll(id).then(gardens => newState.gardens = gardens)
-      .then(() => PlantManager.getAll(id)).then(plants => newState.plants = plants)
-      .then(() => GardenPlantManager.getAll(id)).then(gardenPlants => newState.gardenPlants = gardenPlants)
+      .then(() => GardenPlantManager.getAll()).then(gardenPlants => newState.gardenPlants = gardenPlants)
+      .then(() => LocationManager.getAll(id)).then(locations => newState.locations = locations)
+      .then(() => PlantManager.getAll()).then(plants => newState.plants = plants)
       .then(() => this.setState(newState))
   }
 
@@ -38,6 +42,16 @@ export default class ApplicationViews extends Component {
         return <GardenDetail {...props}
           gardens={this.state.gardens}
           gardenPlants={this.state.gardenPlants}
+          locations={this.state.locations}
+          plants={this.state.plants} />
+      }}
+      />
+
+      <Route path="/plants/:plantId(\d+)/" render={props => {
+        return <PlantDetail {...props}
+          gardens={this.state.gardens}
+          gardenPlants={this.state.gardenPlants}
+          locations={this.state.locations}
           plants={this.state.plants} />
       }}
       />
