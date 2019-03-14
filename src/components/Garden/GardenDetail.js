@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import PlantCard from "../Plant/PlantCard"
+import {Button} from "reactstrap"
 
 export default class GardenDetail extends Component {
     render() {
@@ -18,6 +19,8 @@ export default class GardenDetail extends Component {
                         plant={plant}
                     />
                 )}
+                        <Button color="warning" onClick={() => this.props.closeGarden(garden)}>Close Garden</Button>
+
             </React.Fragment>
         )
     }
