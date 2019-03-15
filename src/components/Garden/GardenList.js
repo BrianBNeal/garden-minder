@@ -5,7 +5,6 @@ export default class GardenList extends Component {
     render() {
 
         const gardens = this.props.gardens.filter(garden => garden.dateClosed === "")
-
         return (
             <section className="garden-list">
                 <h2>My Gardens</h2>
