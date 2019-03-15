@@ -1,9 +1,11 @@
-import React, {Component} from "react"
+import React, { Component } from "react"
 
 export default class PlantDetail extends Component {
     render() {
         return (
-            "PLANT DETAIL"
+            <React.Fragment>
+                <div>"PLANT DETAIL"</div>
+            </React.Fragment>
         )
     }
 }
