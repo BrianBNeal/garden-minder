@@ -33,6 +33,7 @@ export default class GardenCard extends Component {
                                 : null}
                         </CardSubtitle>
                         {plants.map(plant => <CardText key={plant.id}>{plant.name}</CardText>)}
+                        <CardText>{garden.notes}</CardText>
                     </CardBody>
                 </Card>
             </React.Fragment>

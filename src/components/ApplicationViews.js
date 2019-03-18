@@ -11,6 +11,9 @@ import { Route } from "react-router-dom"
 import moment from "moment"
 
 export default class ApplicationViews extends Component {
+
+  activeUserId = parseInt(sessionStorage.getItem("credentials"))
+
   state = {
     gardens: [],
     gardenPlants: [],
@@ -26,7 +29,7 @@ export default class ApplicationViews extends Component {
       //from the response, store the id in the array
       .then(newGarden => newId.push(newGarden.id))
       //refresh state
-      .then(() => GardenManager.getAll(parseInt(sessionStorage.getItem("credentials"))))
+      .then(() => GardenManager.getAll(this.activeUserId))
       .then(gardens => this.setState({ gardens: gardens }))
       //get the id from the array and send it back to the onClick function to finish the URL reroute
       .then(() => {
@@ -35,29 +38,51 @@ export default class ApplicationViews extends Component {
   }
 
   addGardenPlant = (gardenPlantObj) => {
-    GardenPlantManager.add(gardenPlantObj)
-      .then(() => GardenPlantManager.getAll()).then(gardenPlants => this.setState({ gardenPlants: gardenPlants }))
+    return GardenPlantManager.add(gardenPlantObj)
+      .then(() => GardenPlantManager.getAll())
+      .then(gardenPlants => this.setState({ gardenPlants: gardenPlants }))
+  }
+
+  addLocation = (locationObj) => {
+    return LocationManager.add(locationObj)
+      .then(() => LocationManager.getAll(this.activeUserId))
+      .then(locations => this.setState({ locations: locations }))
   }
 
   closeGarden = (gardenObj) => {
     gardenObj.dateClosed = moment().format("YYYY-MM-DD")
     return GardenManager.edit(gardenObj)
-      .then(() => GardenManager.getAll(parseInt(sessionStorage.getItem("credentials"))))
+      .then(() => GardenManager.getAll(this.activeUserId))
       .then(gardens => this.setState({ gardens: gardens }))
   }
 
+  deleteGarden = (gardenId) => {
+    return GardenManager.delete(gardenId)
+      .then(() => GardenManager.getAll(this.activeUserId))
+      .then(gardens => this.setState({ gardens: gardens }))
+  }
+
+  deleteGardenPlant = (id, event) => {
+    return GardenPlantManager.delete(id)
+      .then(() => GardenPlantManager.getAll())
+      .then(gp => this.setState({ gardenPlants: gp }))
+  }
+
+  updateGarden = (gardenObj) => {
+    return GardenManager.edit(gardenObj)
+      .then(() => GardenManager.getAll(this.activeUserId))
+      .then(gardens => this.setState({ gardens: gardens }))
+  }
 
   componentDidMount() {
-    console.log("ApplicationViews componentDidMount")
 
     const newState = {}
-    const activeUserId = parseInt(sessionStorage.getItem("credentials"))
 
-    GardenManager.getAll(activeUserId)
+    GardenManager.getAll(this.activeUserId)
       .then(gardens => newState.gardens = gardens)
       .then(() => GardenPlantManager.getAll())
       .then(gardenPlants => newState.gardenPlants = gardenPlants)
-      .then(() => LocationManager.getAll(activeUserId))
+      .then(() => LocationManager.getAll(this.activeUserId))
       .then(locations => newState.locations = locations)
       .then(() => PlantManager.getAll())
       .then(plants => newState.plants = plants)
@@ -65,7 +90,6 @@ export default class ApplicationViews extends Component {
   }
 
   render() {
-    console.log("ApplicationViews Render")
 
     return <React.Fragment>
 
@@ -77,14 +101,25 @@ export default class ApplicationViews extends Component {
       }}
       />
 
+      <Route exact path="/gardens/history" render={props => {
+        return <GardenList {...props}
+          gardens={this.state.gardens}
+          gardenPlants={this.state.gardenPlants}
+          plants={this.state.plants} />
+      }}
+      />
+
       <Route path="/gardens/:gardenId(\d+)/" render={props => {
         return <GardenDetail {...props}
+          deleteGardenPlant={this.deleteGardenPlant}
+          deleteGarden={this.deleteGarden}
           addGardenPlant={this.addGardenPlant}
           closeGarden={this.closeGarden}
           gardens={this.state.gardens}
           gardenPlants={this.state.gardenPlants}
           locations={this.state.locations}
-          plants={this.state.plants} />
+          plants={this.state.plants}
+          updateGarden={this.updateGarden} />
       }}
       />
 
@@ -99,6 +134,7 @@ export default class ApplicationViews extends Component {
 
       <Route path="/gardens/new" render={props => {
         return <GardenCreateForm {...props}
+          addLocation={this.addLocation}
           locations={this.state.locations}
           addGarden={this.addGarden}
         />
