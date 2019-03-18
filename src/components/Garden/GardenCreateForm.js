@@ -5,16 +5,34 @@ import moment from "moment"
 
 export default class GardenCreateForm extends Component {
 
+    activeUserId = parseInt(sessionStorage.getItem("credentials"))
+
     state = {
         gardenLocation: "",
         gardenName: "",
-        gardenNotes: ""
+        gardenNotes: "",
+        createLocationMode: false,
+        newLocationName: ""
     }
 
     handleFieldChange = (evt) => {
         const stateToChange = {}
         stateToChange[evt.target.id] = evt.target.value
         this.setState(stateToChange)
+    }
+
+    createNewLocation = (evt) => {
+        evt.preventDefault();
+        if (this.state.newLocationName) {
+            this.toggleLocationMode()
+            const newLocationObj = {
+                name: this.state.newLocationName,
+                userId: this.activeUserId
+            }
+            this.props.addLocation(newLocationObj)
+        } else {
+            window.alert("Please provide a name")
+        }
     }
 
     createNewGarden = (evt) => {
@@ -28,7 +46,7 @@ export default class GardenCreateForm extends Component {
                 locationId: parseInt(this.state.gardenLocation),
                 name: this.state.gardenName,
                 notes: this.state.gardenNotes,
-                userId: parseInt(sessionStorage.getItem("credentials"))
+                userId: this.activeUserId
             }
 
             this.props.addGarden(newGardenObject)
@@ -36,6 +54,10 @@ export default class GardenCreateForm extends Component {
         } else {
             window.alert("Please fill in both the name and location")
         }
+    }
+
+    toggleLocationMode = (evt) => {
+        this.setState({ createLocationMode: !this.state.createLocationMode })
     }
 
     render() {
@@ -46,20 +68,48 @@ export default class GardenCreateForm extends Component {
                     <Label for="gardenName">Garden Name</Label>
                     <Input onChange={this.handleFieldChange} type="text" name="gardenName" id="gardenName" placeholder="Enter a name for this garden" />
                 </FormGroup>
-                <FormGroup>
-                    <Label for="gardenLocation">Location   <Button color="link">Create a new location</Button></Label>
-                    <Input onChange={this.handleFieldChange} type="select" name="gardenLocation" id="gardenLocation">
-                        <option value="">--Select a location--</option>
-                        {this.props.locations.map(location =>
-                            <option key={location.id} value={location.id}>{location.name}</option>
-                        )}
-                    </Input>
-                </FormGroup>
+
+                {//conditional for showing input for new location
+                    this.state.createLocationMode
+                        ? <FormGroup>
+                            <Label for="newLocation">Location</Label>
+                            <Input onChange={this.handleFieldChange}
+                                type="text"
+                                name="newLocationName"
+                                id="newLocationName"
+                                placeholder="Enter the location name"
+                                autoFocus />
+                            <Button onClick={this.createNewLocation}
+                                color="primary"
+                                size="sm">
+                                Submit
+                            </Button>
+                            <Button onClick={this.toggleLocationMode}
+                                color="secondary"
+                                size="sm">
+                                Cancel
+                            </Button>
+                        </FormGroup>
+                        : <FormGroup>
+                            <Label for="gardenLocation">Location   <Button onClick={this.toggleLocationMode} color="link">Create a new location</Button></Label>
+                            <Input onChange={this.handleFieldChange}
+                                type="select"
+                                name="gardenLocation"
+                                id="gardenLocation">
+                                <option value="">--Select a location--</option>
+                                {this.props.locations.map(location =>
+                                    <option key={location.id} value={location.id}>{location.name}</option>
+                                )}
+                            </Input>
+                        </FormGroup>
+                }
+
                 <FormGroup>
                     <Label for="gardenNotes">Notes</Label>
                     <Input onChange={this.handleFieldChange} type="textarea" name="gardenNotes" id="gardenNotes" />
                 </FormGroup>
-                <Button onClick={this.createNewGarden}>Submit</Button>
+                <Button color="primary" onClick={this.createNewGarden}>Submit</Button>
+                <Button color="secondary" onClick={() => this.props.history.push("/")}>Cancel</Button>
             </Form>
         )
     }

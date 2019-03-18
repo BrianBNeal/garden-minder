@@ -25,7 +25,7 @@ export default class Nav extends Component {
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/">
+            <Link className="nav-link" to="/gardens/history">
               Past Gardens
             </Link>
           </li>

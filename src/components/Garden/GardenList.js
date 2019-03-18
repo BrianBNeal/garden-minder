@@ -2,9 +2,15 @@ import React, { Component } from "react"
 import GardenCard from "./GardenCard"
 
 export default class GardenList extends Component {
-    render() {
 
-        const gardens = this.props.gardens.filter(garden => garden.dateClosed === "")
+componentDidMount() {
+    console.log("GardenList componentDidMount")
+}
+
+    render() {
+console.log("GardenList render")
+        const gardens = this.props.gardens
+
         return (
             <section className="garden-list">
                 <h2>My Gardens</h2>
