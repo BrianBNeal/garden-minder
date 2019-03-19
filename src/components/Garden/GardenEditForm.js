@@ -69,6 +69,7 @@ export default class GardenEditForm extends Component {
                     gardenLocation: garden.locationId,
                     gardenName: garden.name,
                     gardenNotes: garden.notes,
+                    dateCreated: garden.dateCreated
                 });
             });
     }
@@ -112,7 +113,8 @@ export default class GardenEditForm extends Component {
                                 <Label for="gardenLocation">
                                     Location
                                     <Button onClick={this.toggleLocationMode}
-                                        color="link">
+                                        color="link"
+                                        size="sm">
                                         Create a new location
                                     </Button>
                                 </Label>

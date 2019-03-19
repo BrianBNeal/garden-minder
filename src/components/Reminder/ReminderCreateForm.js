@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 import { Form, Label, Input, FormGroup, Button } from "reactstrap"
-import moment from "moment"
 
 export default class ReminderCreateForm extends Component {
 

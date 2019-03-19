@@ -5,13 +5,7 @@ import "./GardenCard.css"
 
 export default class GardenCard extends Component {
 
-    componentDidMount() {
-        console.log("GardenCard componentDidMount")
-    }
-
     render() {
-        console.log("GardenCard render")
-
         const garden = this.props.garden
         //return only this garden's plants
         const plants = this.props.gardenPlants.filter(gp => gp.gardenId === garden.id)
@@ -33,7 +27,7 @@ export default class GardenCard extends Component {
                                 : null}
                         </CardSubtitle>
                         {plants.map(plant => <CardText key={plant.id}>{plant.name}</CardText>)}
-                        <CardText><pre>{garden.notes}</pre></CardText>
+                        <pre>{garden.notes}</pre>
                     </CardBody>
                 </Card>
             </React.Fragment>

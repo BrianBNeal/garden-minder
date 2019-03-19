@@ -2,7 +2,8 @@ import React, { Component } from "react"
 import PlantCard from "../Plant/PlantCard"
 import { Button, Form, FormGroup, Label, InputGroup, Input, InputGroupAddon } from "reactstrap"
 import moment from "moment"
-import GardenManager from "../../modules/GardenManager";
+import GardenManager from "../../modules/GardenManager"
+import ReminderList from "../Reminder/ReminderList"
 // import PlantDetail from "../Plant/PlantDetail";
 
 export default class GardenDetail extends Component {
@@ -88,13 +89,16 @@ export default class GardenDetail extends Component {
 
     render() {
 
-        const thisGarden = this.props.gardens.find(garden => (garden.id === parseInt(this.props.match.params.gardenId))) || {}
+        const thisGarden = this.props.gardens.find(
+            garden => (garden.id === parseInt(this.props.match.params.gardenId))) || {}
 
         const plantsInThisGarden = this.props.gardenPlants.filter(gp => gp.gardenId === thisGarden.id)
             .map(gp =>
                 this.props.plants.find(
                     p => p.id === gp.plantId
                 ))
+
+        const remindersForThisGarden = this.props.reminders.filter(r => r.gardenId === thisGarden.id)
 
         return (
             <React.Fragment>
@@ -103,42 +107,11 @@ export default class GardenDetail extends Component {
                     <Button onClick={() => this.props.history.push(`/gardens/edit/${thisGarden.id}`)}
                         color="link"
                         size="sm">
-                        edit info
+                        edit garden info
                     </Button>
                 </section>
 
-                {/* Add Plant Dropdown Form */}
-                <h4>Add a plant to your garden!</h4>
-                <h5>Select a plant and the date you want to plant it.</h5>
-                <InputGroup id="addNewPlants">
-                    <Input id="plantSelect" type="select" onChange={this.handleFieldChange} >
-                        <option value="">--Select a plant to add--</option>
-                        <option value="new">**Create a new plant**</option>
-                        {this.props.plants.map(plant => <option key={plant.id} value={plant.id}>{plant.name}</option>)}
-                    </Input>
-                    <InputGroupAddon addonType="append">
-                        <Input id="plantDate" type="date" defaultValue={moment().format("YYYY-MM-DD")} onChange={this.handleFieldChange} />
-                    </InputGroupAddon>
-                    <InputGroupAddon addonType="append">
-                        <Button color="secondary" onClick={this.addPlantToGarden}>Add Plant To Garden</Button>
-                    </InputGroupAddon>
-                </InputGroup>
-
-                {/* List of plants in garden */}
-                <section className="detailPlantList">
-                    <div>Plants in this garden:</div>
-                    {plantsInThisGarden.map(plant =>
-                        <PlantCard key={plant.id}
-                            deleteGardenPlant={this.props.deleteGardenPlant}
-                            thisGarden={thisGarden}
-                            gardenPlants={this.props.gardenPlants}
-                            history={this.props.history}
-                            plant={plant}
-                        />
-                    )}
-                </section>
-
-                {/* Notes for this garden */}
+                {/* Notes */}
                 <section>
                     <div>Garden Notes:</div>
                     {//if in editNotes mode, show the textarea input, otherwise just show the notes
@@ -162,15 +135,91 @@ export default class GardenDetail extends Component {
                             </React.Fragment>
                             : <React.Fragment>
                                 <pre>{thisGarden.notes}</pre>
-                                <Button color="link" onClick={this.toggleEditNotesMode}>edit</Button>
+                                <Button onClick={this.toggleEditNotesMode}
+                                    color="link"
+                                    size="sm" >
+                                    edit notes
+                                </Button>
                             </React.Fragment>
                     }
-
                 </section>
 
+                {/* Reminders */}
+                <section className="gardenReminders">
+                    <div>
+                        Reminders (check to mark completed)
+                        <Button onClick={() => this.props.history.push(`/reminders/new/${thisGarden.id}`)}
+                            color="link"
+                            size="sm">
+                            add reminder
+                        </Button>
+                    </div>
+                    {remindersForThisGarden.map(reminder =>
+                        (reminder.completed === false)
+                        ? <ReminderList key={reminder.id}
+                        updateReminder={this.props.updateReminder}
+                            reminder={reminder}
+                            history={this.props.history}
+                        />
+                        : null
+                    )}
+                </section>
 
-                <Button color="warning" onClick={() => this.confirmClose(thisGarden)}>Close Garden</Button>
-                <Button color="danger" onClick={() => this.confirmDelete(thisGarden.id)}>Delete Garden</Button>
+                {/* List of plants in garden */}
+                <section className="detailPlantList">
+                    <div>Plants in this garden:</div>
+                    {plantsInThisGarden.map(plant =>
+                        <PlantCard key={plant.id}
+                            deleteGardenPlant={this.props.deleteGardenPlant}
+                            thisGarden={thisGarden}
+                            gardenPlants={this.props.gardenPlants}
+                            history={this.props.history}
+                            plant={plant}
+                        />
+                    )}
+                </section>
+
+                {/* Add Plant Dropdown Form */}
+                <h4>Add a plant to your garden!</h4>
+                <h5>Select a plant and the date you want to plant it.</h5>
+                <InputGroup id="addNewPlants">
+                    <Input onChange={this.handleFieldChange}
+                        id="plantSelect"
+                        type="select" >
+                        <option value="">--Select a plant to add--</option>
+                        <option value="new">**Create a new plant**</option>
+                        {this.props.plants.map(plant =>
+                            <option key={plant.id}
+                                value={plant.id}>
+                                {plant.name}
+                            </option>)}
+                    </Input>
+                    <InputGroupAddon addonType="append">
+                        <Input onChange={this.handleFieldChange}
+                            id="plantDate"
+                            type="date"
+                            defaultValue={moment().format("YYYY-MM-DD")}
+                        />
+                    </InputGroupAddon>
+                    <InputGroupAddon addonType="append">
+                        <Button onClick={this.addPlantToGarden}
+                            color="primary" >
+                            Add Plant To Garden
+                        </Button>
+                    </InputGroupAddon>
+                </InputGroup>
+
+
+
+
+                <Button onClick={() => this.confirmClose(thisGarden)}
+                    color="warning" >
+                    Close Garden
+                </Button>
+                <Button onClick={() => this.confirmDelete(thisGarden.id)}
+                    color="danger" >
+                    Delete Garden
+                </Button>
 
             </React.Fragment>
         )

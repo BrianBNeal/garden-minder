@@ -91,7 +91,14 @@ export default class GardenCreateForm extends Component {
                             </Button>
                         </FormGroup>
                         : <FormGroup>
-                            <Label for="gardenLocation">Location   <Button onClick={this.toggleLocationMode} color="link">Create a new location</Button></Label>
+                            <Label for="gardenLocation">
+                                Location
+                                <Button onClick={this.toggleLocationMode}
+                                    size="sm"
+                                    color="link">
+                                    Create a new location
+                                </Button>
+                            </Label>
                             <Input onChange={this.handleFieldChange}
                                 type="select"
                                 name="gardenLocation"
@@ -108,8 +115,14 @@ export default class GardenCreateForm extends Component {
                     <Label for="gardenNotes">Notes</Label>
                     <Input onChange={this.handleFieldChange} type="textarea" name="gardenNotes" id="gardenNotes" />
                 </FormGroup>
-                <Button color="primary" onClick={this.createNewGarden}>Submit</Button>
-                <Button color="secondary" onClick={() => this.props.history.push("/")}>Cancel</Button>
+                <Button onClick={this.createNewGarden}
+                    color="primary" >
+                    Submit
+                </Button>
+                <Button onClick={() => this.props.history.push("/")}
+                    color="secondary" >
+                    Cancel
+                </Button>
             </Form>
         )
     }

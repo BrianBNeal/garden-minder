@@ -33,7 +33,8 @@ export default class PlantCard extends Component {
                     {(this.state.showPlantOptions)
                         ? <React.Fragment>
                             <Button onClick={this.togglePlantOptions}
-                                color="link" >
+                                color="link"
+                                size="sm" >
                                 hide options
                             </Button>
                             <CardFooter>
@@ -52,7 +53,8 @@ export default class PlantCard extends Component {
                             </CardFooter>
                         </React.Fragment>
                         : <Button onClick={this.togglePlantOptions}
-                            color="link" >
+                            color="link"
+                            size="sm" >
                             show options
                         </Button>
                     }
