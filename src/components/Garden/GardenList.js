@@ -3,12 +3,7 @@ import GardenCard from "./GardenCard"
 
 export default class GardenList extends Component {
 
-componentDidMount() {
-    console.log("GardenList componentDidMount")
-}
-
     render() {
-console.log("GardenList render")
         const gardens = this.props.gardens
 
         return (

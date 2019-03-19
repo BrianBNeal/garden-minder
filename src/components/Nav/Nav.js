@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { Link } from "react-router-dom"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "./nav.css"
+import { Button } from "reactstrap"
 
 export default class Nav extends Component {
   logout = () => {
@@ -32,12 +33,12 @@ export default class Nav extends Component {
         </ul>
         <div className="logout-div">
           <div className="nav-link">Welcome, {this.props.activeUser.username}!</div>
-          <button
+          <Button onClick={this.logout}
+            outline color="primary"
             type="button"
-            className="btn btn-outline-info"
-            onClick={this.logout}>
+            className="btn btn-outline-info" >
             Logout
-        </button>
+        </Button>
         </div>
       </nav>
     )

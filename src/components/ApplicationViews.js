@@ -7,6 +7,9 @@ import GardenPlantManager from "../modules/GardenPlantManager"
 import LocationManager from "../modules/LocationManager"
 import PlantDetail from "./Plant/PlantDetail"
 import PlantManager from "../modules/PlantManager"
+import ReminderCreateForm from "../components/Reminder/ReminderCreateForm"
+import ReminderEditForm from "../components/Reminder/ReminderEditForm"
+import RemindersManager from "../modules/RemindersManager"
 import React, { Component } from "react"
 import { Route } from "react-router-dom"
 import moment from "moment"
@@ -19,7 +22,8 @@ export default class ApplicationViews extends Component {
     gardens: [],
     gardenPlants: [],
     locations: [],
-    plants: []
+    plants: [],
+    reminders: []
   }
 
   addGarden = (gardenObj) => {
@@ -50,6 +54,12 @@ export default class ApplicationViews extends Component {
       .then(locations => this.setState({ locations: locations }))
   }
 
+  addReminder = (reminderObj) => {
+    return RemindersManager.add(reminderObj)
+      .then(() => RemindersManager.getAll())
+      .then(reminders => this.setState({ reminders: reminders }))
+  }
+
   closeGarden = (gardenObj) => {
     gardenObj.dateClosed = moment().format("YYYY-MM-DD")
     return GardenManager.edit(gardenObj)
@@ -75,6 +85,12 @@ export default class ApplicationViews extends Component {
       .then(gardens => this.setState({ gardens: gardens }))
   }
 
+  updateReminder = (reminderObj) => {
+    return RemindersManager.edit(reminderObj)
+      .then(() => RemindersManager.getAll())
+      .then(reminders => this.setState({ reminders: reminders }))
+  }
+
   componentDidMount() {
 
     const newState = {}
@@ -87,6 +103,8 @@ export default class ApplicationViews extends Component {
       .then(locations => newState.locations = locations)
       .then(() => PlantManager.getAll())
       .then(plants => newState.plants = plants)
+      .then(() => RemindersManager.getAll())
+      .then(reminders => newState.reminders = reminders)
       .then(() => this.setState(newState))
   }
 
@@ -102,7 +120,7 @@ export default class ApplicationViews extends Component {
       }}
       />
 
-      <Route exact path="/gardens/history" render={props => {
+      <Route path="/gardens/history" render={props => {
         return <GardenList {...props}
           gardens={this.state.gardens}
           gardenPlants={this.state.gardenPlants}
@@ -112,15 +130,17 @@ export default class ApplicationViews extends Component {
 
       <Route path="/gardens/:gardenId(\d+)/" render={props => {
         return <GardenDetail {...props}
-          deleteGardenPlant={this.deleteGardenPlant}
-          deleteGarden={this.deleteGarden}
           addGardenPlant={this.addGardenPlant}
           closeGarden={this.closeGarden}
+          deleteGarden={this.deleteGarden}
+          deleteGardenPlant={this.deleteGardenPlant}
           gardens={this.state.gardens}
           gardenPlants={this.state.gardenPlants}
           locations={this.state.locations}
           plants={this.state.plants}
-          updateGarden={this.updateGarden} />
+          reminders={this.state.reminders}
+          updateGarden={this.updateGarden}
+          updateReminder={this.updateReminder} />
       }}
       />
 
@@ -138,6 +158,22 @@ export default class ApplicationViews extends Component {
           addLocation={this.addLocation}
           locations={this.state.locations}
           addGarden={this.addGarden}
+        />
+      }}
+      />
+
+      {/* this route uses the gardenId to navigate back to GardenDetails */}
+      <Route path="/reminders/new/:gardenId(\d+)/" render={props => {
+        return <ReminderCreateForm {...props}
+          addReminder={this.addReminder}
+        />
+      }}
+      />
+
+      {/* this route uses reminderId for the GET and then reminder.gardenId to navigate back */}
+      <Route path="/reminders/edit/:reminderId(\d+)/" render={props => {
+        return <ReminderEditForm {...props}
+          updateReminder={this.updateReminder}
         />
       }}
       />
