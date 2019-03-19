@@ -10,7 +10,7 @@ export default class GardenDetail extends Component {
     state = {
         plantSelect: "",
         plantDate: moment().format("YYYY-MM-DD"),
-        editNotes: false,
+        editNotesMode: false,
         gardenNotes: ""
     }
 
@@ -68,13 +68,13 @@ export default class GardenDetail extends Component {
     }
 
     //function to go into edit mode for notes on the garden
-    editNotes = () => {
-        this.setState({ editNotes: !this.state.editNotes })
+    toggleEditNotesMode = () => {
+        this.setState({ editNotesMode: !this.state.editNotesMode })
     }
 
     //function to apply updated notes to garden
     updateNotes = (thisGarden) => {
-        this.setState({ editNotes: !this.state.editNotes })
+        this.setState({ editNotesMode: !this.state.editNotesMode })
         thisGarden.notes = this.state.gardenNotes
         this.props.updateGarden(thisGarden)
     }
@@ -98,7 +98,14 @@ export default class GardenDetail extends Component {
 
         return (
             <React.Fragment>
-                <h1>{thisGarden.name}</h1>
+                <section>
+                    <h1>{thisGarden.name}</h1>
+                    <Button onClick={() => this.props.history.push(`/gardens/edit/${thisGarden.id}`)}
+                        color="link"
+                        size="sm">
+                        edit info
+                    </Button>
+                </section>
 
                 {/* Add Plant Dropdown Form */}
                 <h4>Add a plant to your garden!</h4>
@@ -135,7 +142,7 @@ export default class GardenDetail extends Component {
                 <section>
                     <div>Garden Notes:</div>
                     {//if in editNotes mode, show the textarea input, otherwise just show the notes
-                        this.state.editNotes
+                        this.state.editNotesMode
                             ? <React.Fragment>
                                 <Form>
                                     <FormGroup>
@@ -147,11 +154,15 @@ export default class GardenDetail extends Component {
                                             value={this.state.gardenNotes} />
                                     </FormGroup>
                                 </Form>
-                                <Button color="secondary" size="sm" onClick={() => this.updateNotes(thisGarden)}>Done</Button>
+                                <Button onClick={() => this.updateNotes(thisGarden)}
+                                    color="secondary"
+                                    size="sm" >
+                                    Done
+                                </Button>
                             </React.Fragment>
                             : <React.Fragment>
-                                <div>{thisGarden.notes}</div>
-                                <Button color="link" onClick={this.editNotes}>edit</Button>
+                                <pre>{thisGarden.notes}</pre>
+                                <Button color="link" onClick={this.toggleEditNotesMode}>edit</Button>
                             </React.Fragment>
                     }
 

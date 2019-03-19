@@ -141,6 +141,15 @@ export default class ApplicationViews extends Component {
       }}
       />
 
+      <Route path="/gardens/edit/:gardenId(\d+)/" render={props => {
+        return <GardenEditForm {...props}
+          addLocation={this.addLocation}
+          locations={this.state.locations}
+          editGarden={this.editGarden}
+        />
+      }}
+      />
+
     </React.Fragment>
   }
 }
