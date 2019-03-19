@@ -1,5 +1,6 @@
 import GardenCreateForm from "../components/Garden/GardenCreateForm"
 import GardenDetail from "./Garden/GardenDetail"
+import GardenEditForm from "./Garden/GardenEditForm"
 import GardenList from "./Garden/GardenList"
 import GardenManager from "../modules/GardenManager"
 import GardenPlantManager from "../modules/GardenPlantManager"
@@ -145,7 +146,7 @@ export default class ApplicationViews extends Component {
         return <GardenEditForm {...props}
           addLocation={this.addLocation}
           locations={this.state.locations}
-          editGarden={this.editGarden}
+          updateGarden={this.updateGarden}
         />
       }}
       />
