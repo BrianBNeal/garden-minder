@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import "./login.css"
-import UserManager from "../../modules/UserManager"
 import { Button } from "reactstrap"
+import DataManager from "../../modules/DataManager"
 
 
 export default class Login extends Component {
@@ -21,16 +21,16 @@ export default class Login extends Component {
 
   handleRegister = e => {
     e.preventDefault()
-    const newUser = {
+    const newUserObj = {
       username: this.state.username,
       password: this.state.password
     }
     if (this.state.username && this.state.password) {
-      UserManager.searchUsername(this.state.username).then(users => {
+      DataManager.searchUsername(this.state.username).then(users => {
         if (users.length) {
           alert(`Username ${this.state.username} already exits!`)
         } else {
-          UserManager.addUser(newUser).then(user => {
+          DataManager.add("users", newUserObj).then(user => {
             sessionStorage.setItem("credentials", parseInt(user.id))
             this.props.setAuth()
           })
@@ -44,7 +44,7 @@ export default class Login extends Component {
   handleLogin = e => {
     e.preventDefault()
     if (this.state.username && this.state.password) {
-      UserManager.searchUP(this.state.username, this.state.password).then(
+      DataManager.searchUP(this.state.username, this.state.password).then(
         user => {
           if (!user.length) {
             alert("Wrong username or password!")

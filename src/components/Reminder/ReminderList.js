@@ -1,12 +1,11 @@
 import React, { Component } from "react"
 import { Button, InputGroupText, InputGroup, Input, InputGroupAddon } from "reactstrap"
 import moment from "moment"
-import RemindersManager from "../../modules/RemindersManager";
 
 export default class ReminderList extends Component {
 
     completeReminder = () => {
-        this.props.reminder.completed = true
+        this.props.reminder.completed = !this.props.reminder.completed
         this.props.updateReminder(this.props.reminder)
     }
 

@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import ApplicationViews from "./ApplicationViews"
-import UserManager from "../modules/UserManager"
+import DataManager from "../modules/DataManager"
 import Nav from "./Nav/Nav"
 
 export default class UserAccessLayer extends Component {
@@ -9,7 +9,7 @@ export default class UserAccessLayer extends Component {
   }
 
   componentDidMount() {
-    UserManager.get(this.activeUserId()).then(activeUser =>
+    DataManager.get("users", this.activeUserId()).then(activeUser =>
       this.setState({ activeUser: activeUser })
     )
   }
