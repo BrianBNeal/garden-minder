@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import PlantCard from "../Plant/PlantCard"
 import { Button, Form, FormGroup, Label, InputGroup, Input, InputGroupAddon } from "reactstrap"
 import moment from "moment"
-import GardenManager from "../../modules/GardenManager"
+import DataManager from "../../modules/DataManager"
 import ReminderList from "../Reminder/ReminderList"
 // import PlantDetail from "../Plant/PlantDetail";
 
@@ -31,11 +31,8 @@ export default class GardenDetail extends Component {
                     p => p.id === gp.plantId
                 ))
 
-        //check to see if the New Plant form should activate
-        if (this.state.plantSelect === "new") {
-            console.log("you want to create a new plant in the database")
-            //check to make sure all fields are filled
-        } else if ((this.state.plantSelect === "") || (this.state.plantDate === "")) {
+        //make sure they selected something
+        if ((this.state.plantSelect === "") || (this.state.plantDate === "")) {
             return null
         } else {
             //make sure plant isn't already in the garden
@@ -81,7 +78,7 @@ export default class GardenDetail extends Component {
     }
 
     componentDidMount() {
-        GardenManager.get(parseInt(this.props.match.params.gardenId))
+        DataManager.get("gardens", parseInt(this.props.match.params.gardenId))
             .then(garden => {
                 this.setState({ gardenNotes: garden.notes })
             })
@@ -156,12 +153,12 @@ export default class GardenDetail extends Component {
                     </div>
                     {remindersForThisGarden.map(reminder =>
                         (reminder.completed === false)
-                        ? <ReminderList key={reminder.id}
-                        updateReminder={this.props.updateReminder}
-                            reminder={reminder}
-                            history={this.props.history}
-                        />
-                        : null
+                            ? <ReminderList key={reminder.id}
+                                updateReminder={this.props.updateReminder}
+                                reminder={reminder}
+                                history={this.props.history}
+                            />
+                            : null
                     )}
                 </section>
 
@@ -194,19 +191,29 @@ export default class GardenDetail extends Component {
                                 {plant.name}
                             </option>)}
                     </Input>
-                    <InputGroupAddon addonType="append">
-                        <Input onChange={this.handleFieldChange}
-                            id="plantDate"
-                            type="date"
-                            defaultValue={moment().format("YYYY-MM-DD")}
-                        />
-                    </InputGroupAddon>
-                    <InputGroupAddon addonType="append">
-                        <Button onClick={this.addPlantToGarden}
-                            color="primary" >
-                            Add Plant To Garden
-                        </Button>
-                    </InputGroupAddon>
+                    {this.state.plantSelect === "new"
+                        ? <InputGroupAddon addonType="append">
+                            <Button onClick={() => this.props.history.push(`/plants/new/${thisGarden.id}`)}
+                                color="success" >
+                                Create a New Plant
+                            </Button>
+                        </InputGroupAddon>
+                        : <React.Fragment>
+                            <InputGroupAddon addonType="append">
+                                <Input onChange={this.handleFieldChange}
+                                    id="plantDate"
+                                    type="date"
+                                    defaultValue={moment().format("YYYY-MM-DD")}
+                                />
+                            </InputGroupAddon>
+                            <InputGroupAddon addonType="append">
+                                <Button onClick={this.addPlantToGarden}
+                                    color="primary" >
+                                    Add Plant to Garden
+                            </Button>
+                            </InputGroupAddon>
+                        </React.Fragment>
+                    }
                 </InputGroup>
 
 

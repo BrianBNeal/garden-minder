@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import ApplicationViews from "./ApplicationViews"
-import UserManager from "../modules/UserManager"
-import Nav from "./Nav/Nav"
+import DataManager from "../modules/DataManager"
+import MyNavbar from "./Nav/Nav"
 
 export default class UserAccessLayer extends Component {
   state = {
@@ -9,7 +9,7 @@ export default class UserAccessLayer extends Component {
   }
 
   componentDidMount() {
-    UserManager.get(this.activeUserId()).then(activeUser =>
+    DataManager.get("users", this.activeUserId()).then(activeUser =>
       this.setState({ activeUser: activeUser })
     )
   }
@@ -18,7 +18,7 @@ export default class UserAccessLayer extends Component {
   render() {
     return (
       <React.Fragment>
-        <Nav setAuth={this.props.setAuth} activeUser={this.state.activeUser} />
+        <MyNavbar setAuth={this.props.setAuth} activeUser={this.state.activeUser} />
         <ApplicationViews
           activeUserId={this.activeUserId}
           activeUser={this.state.activeUser}

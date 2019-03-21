@@ -1,15 +1,12 @@
-import GardenCreateForm from "../components/Garden/GardenCreateForm"
+import DataManager from "../modules/DataManager"
+import GardenCreateForm from "./Garden/GardenCreateForm"
 import GardenDetail from "./Garden/GardenDetail"
 import GardenEditForm from "./Garden/GardenEditForm"
 import GardenList from "./Garden/GardenList"
-import GardenManager from "../modules/GardenManager"
-import GardenPlantManager from "../modules/GardenPlantManager"
-import LocationManager from "../modules/LocationManager"
+import PlantCreateForm from "./Plant/PlantCreateForm"
 import PlantDetail from "./Plant/PlantDetail"
-import PlantManager from "../modules/PlantManager"
-import ReminderCreateForm from "../components/Reminder/ReminderCreateForm"
-import ReminderEditForm from "../components/Reminder/ReminderEditForm"
-import RemindersManager from "../modules/RemindersManager"
+import ReminderCreateForm from "./Reminder/ReminderCreateForm"
+import ReminderEditForm from "./Reminder/ReminderEditForm"
 import React, { Component } from "react"
 import { Route } from "react-router-dom"
 import moment from "moment"
@@ -30,11 +27,11 @@ export default class ApplicationViews extends Component {
     //array to store the newly created garden's id, because it won't let me store it in a number variable for some reason
     const newId = []
     //add garden to database
-    return GardenManager.add(gardenObj)
+    return DataManager.add("gardens", gardenObj)
       //from the response, store the id in the array
       .then(newGarden => newId.push(newGarden.id))
       //refresh state
-      .then(() => GardenManager.getAll(this.activeUserId))
+      .then(() => DataManager.getAllByUser("gardens", this.activeUserId))
       .then(gardens => this.setState({ gardens: gardens }))
       //get the id from the array and send it back to the onClick function to finish the URL reroute
       .then(() => {
@@ -43,51 +40,57 @@ export default class ApplicationViews extends Component {
   }
 
   addGardenPlant = (gardenPlantObj) => {
-    return GardenPlantManager.add(gardenPlantObj)
-      .then(() => GardenPlantManager.getAll())
+    return DataManager.add("gardenPlants", gardenPlantObj)
+      .then(() => DataManager.getAll("gardenPlants"))
       .then(gardenPlants => this.setState({ gardenPlants: gardenPlants }))
   }
 
   addLocation = (locationObj) => {
-    return LocationManager.add(locationObj)
-      .then(() => LocationManager.getAll(this.activeUserId))
+    return DataManager.add("locations", locationObj)
+      .then(() => DataManager.getAllByUser("locations", this.activeUserId))
       .then(locations => this.setState({ locations: locations }))
   }
 
+  addPlant = (plantObj) => {
+    return DataManager.add("plants", plantObj)
+      .then(() => DataManager.getAll("plants"))
+      .then(plants => this.setState({plants: plants}))
+  }
+
   addReminder = (reminderObj) => {
-    return RemindersManager.add(reminderObj)
-      .then(() => RemindersManager.getAll())
+    return DataManager.add("reminders", reminderObj)
+      .then(() => DataManager.getAll("reminders"))
       .then(reminders => this.setState({ reminders: reminders }))
   }
 
   closeGarden = (gardenObj) => {
     gardenObj.dateClosed = moment().format("YYYY-MM-DD")
-    return GardenManager.edit(gardenObj)
-      .then(() => GardenManager.getAll(this.activeUserId))
+    return DataManager.edit("gardens", gardenObj)
+      .then(() => DataManager.getAllByUser("gardens", this.activeUserId))
       .then(gardens => this.setState({ gardens: gardens }))
   }
 
   deleteGarden = (gardenId) => {
-    return GardenManager.delete(gardenId)
-      .then(() => GardenManager.getAll(this.activeUserId))
+    return DataManager.delete("gardens", gardenId)
+      .then(() => DataManager.getAllByUser("gardens", this.activeUserId))
       .then(gardens => this.setState({ gardens: gardens }))
   }
 
   deleteGardenPlant = (id, event) => {
-    return GardenPlantManager.delete(id)
-      .then(() => GardenPlantManager.getAll())
+    return DataManager.delete("gardenPlants", id)
+      .then(() => DataManager.getAll("gardenPlants"))
       .then(gp => this.setState({ gardenPlants: gp }))
   }
 
   updateGarden = (gardenObj) => {
-    return GardenManager.edit(gardenObj)
-      .then(() => GardenManager.getAll(this.activeUserId))
+    return DataManager.edit("gardens", gardenObj)
+      .then(() => DataManager.getAllByUser("gardens", this.activeUserId))
       .then(gardens => this.setState({ gardens: gardens }))
   }
 
   updateReminder = (reminderObj) => {
-    return RemindersManager.edit(reminderObj)
-      .then(() => RemindersManager.getAll())
+    return DataManager.edit("reminders", reminderObj)
+      .then(() => DataManager.getAll("reminders"))
       .then(reminders => this.setState({ reminders: reminders }))
   }
 
@@ -95,15 +98,15 @@ export default class ApplicationViews extends Component {
 
     const newState = {}
 
-    GardenManager.getAll(this.activeUserId)
+    DataManager.getAllByUser("gardens", this.activeUserId)
       .then(gardens => newState.gardens = gardens)
-      .then(() => GardenPlantManager.getAll())
-      .then(gardenPlants => newState.gardenPlants = gardenPlants)
-      .then(() => LocationManager.getAll(this.activeUserId))
+      .then(() => DataManager.getAllByUser("locations", this.activeUserId))
       .then(locations => newState.locations = locations)
-      .then(() => PlantManager.getAll())
+      .then(() => DataManager.getAll("gardenPlants"))
+      .then(gardenPlants => newState.gardenPlants = gardenPlants)
+      .then(() => DataManager.getAll("plants"))
       .then(plants => newState.plants = plants)
-      .then(() => RemindersManager.getAll())
+      .then(() => DataManager.getAll("reminders"))
       .then(reminders => newState.reminders = reminders)
       .then(() => this.setState(newState))
   }
@@ -150,6 +153,13 @@ export default class ApplicationViews extends Component {
           gardenPlants={this.state.gardenPlants}
           locations={this.state.locations}
           plants={this.state.plants} />
+      }}
+      />
+
+      <Route path="/plants/new/:gardenId(\d+)/" render={props => {
+        return <PlantCreateForm {...props}
+          addPlant={this.addPlant}
+        />
       }}
       />
 

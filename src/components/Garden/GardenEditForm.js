@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import GardenManager from "../../modules/GardenManager";
+import DataManager from "../../modules/DataManager";
 
 export default class GardenEditForm extends Component {
 
@@ -62,7 +62,7 @@ export default class GardenEditForm extends Component {
     }
 
     componentDidMount() {
-        GardenManager.get(this.props.match.params.gardenId)
+        DataManager.get("gardens", this.props.match.params.gardenId)
             .then(garden => {
 
                 this.setState({
@@ -141,7 +141,7 @@ export default class GardenEditForm extends Component {
                     </FormGroup>
                     <Button onClick={this.updateExistingGarden}
                         color="primary" >
-                        Submit
+                        Update
                     </Button>
                     <Button onClick={() => this.props.history.push(`/gardens/${this.props.match.params.gardenId}`)}
                         color="secondary" >

@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Form, Label, Input, FormGroup, Button } from "reactstrap"
-import RemindersManager from "../../modules/RemindersManager"
+import DataManager from "../../modules/DataManager"
 
 export default class ReminderCreateForm extends Component {
 
@@ -38,7 +38,7 @@ export default class ReminderCreateForm extends Component {
     }
 
     componentDidMount() {
-        RemindersManager.get(this.props.match.params.reminderId)
+        DataManager.get("reminders", this.props.match.params.reminderId)
             .then(reminder => {
                 this.setState({
                     reminderDate: reminder.date,
