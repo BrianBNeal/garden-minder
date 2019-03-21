@@ -1,10 +1,10 @@
 import React, { Component } from "react"
 import { Link } from "react-router-dom"
-import "bootstrap/dist/css/bootstrap.min.css"
 import "./nav.css"
-import { Button } from "reactstrap"
+import { Button, Navbar, NavbarBrand, Nav, NavItem } from "reactstrap"
 
-export default class Nav extends Component {
+export default class MyNavbar extends Component {
+
   logout = () => {
     sessionStorage.clear("credentials")
     //credentials are cleared so setAuth will reroute to login
@@ -13,34 +13,36 @@ export default class Nav extends Component {
 
   render() {
     return (
-      <nav className="navbar navbar-light fixed-top light-blue flex-md-nowrap p-0 shadow">
-        <ul className="nav nav-pills">
-          <li className="nav-item">
-            <Link className="nav-link" to="/">
-              Garden Minder
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/gardens/new">
-              Create a Garden
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/gardens/history">
-              Past Gardens
-            </Link>
-          </li>
-        </ul>
-        <div className="logout-div">
-          <div className="nav-link">Welcome, {this.props.activeUser.username}!</div>
-          <Button onClick={this.logout}
-            outline color="primary"
-            type="button"
-            className="btn btn-outline-info" >
-            Logout
-        </Button>
-        </div>
-      </nav>
+      <React.Fragment>
+        <Navbar color="light" light expand="md" fixed="top">
+          <Nav className="mr-auto" navbar>
+            <NavItem>
+              <Link light to="/">Garden Minder</Link>
+            </NavItem>
+            <NavItem>
+              <Link to="/gardens/new">Create a Garden</Link>
+            </NavItem>
+            <NavItem>
+              <Link to="/gardens/history">Past Gardens</Link>
+            </NavItem>
+          </Nav>
+          <Nav className="" navbar>
+            <NavItem>
+              <NavbarBrand >
+                Welcome, {this.props.activeUser.username}!
+              </NavbarBrand>
+            </NavItem>
+            <NavItem className="logout-div">
+              <Button onClick={this.logout}
+                outline color="primary"
+                type="button"
+                className="btn btn-outline-info" >
+                Logout
+              </Button>
+            </NavItem>
+          </Nav>
+        </Navbar>
+      </React.Fragment>
     )
   }
 }

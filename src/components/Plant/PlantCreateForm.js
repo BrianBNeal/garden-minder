@@ -40,7 +40,7 @@ export default class PlantCreateForm extends Component {
 
         //send back to ApplicationViews for fetch and setState
         this.props.addPlant(newPlantObj)
-            .then(() => this.props.history.push(`/gardens/this.props.match.params.gardenId`))
+            .then(() => this.props.history.push(`/gardens/${this.props.match.params.gardenId}`))
     }
 
     render() {
@@ -51,7 +51,7 @@ export default class PlantCreateForm extends Component {
                     <Row form>
                         <Col md={5}>
                             <FormGroup>
-                                <Label for="plantName">Plant Name<span style={{ color: "red", fontSize: "1.5em" }}>*</span></Label>
+                                <Label for="plantName">Plant Name<span style={{ color: "red", fontWeight: "bolder"}}>*</span></Label>
                                 <Input onChange={this.handleFieldChange} type="text" name="plantName" id="plantName" placeholder="San Marzano Tomatoes" />
                             </FormGroup>
                         </Col>

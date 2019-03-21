@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Button, Card, CardBody, CardFooter, CardTitle } from 'reactstrap'
+import { Button, Card, CardText, CardBody, CardFooter, CardTitle } from 'reactstrap'
 
 
 export default class PlantCard extends Component {
@@ -24,11 +24,26 @@ export default class PlantCard extends Component {
 
         return (
             <React.Fragment>
-                <Card onClick={() => this.props.history.push(`/plants/${plant.id}`)}>
+                <Card >
                     <CardBody>
                         <CardTitle>
                             {plant.name}
                         </CardTitle>
+                        <CardText>
+                            {plant.startIndoors ? "Start indoors" : "Direct sow outdoors"}
+                        </CardText>
+                        <CardText >
+                            {plant.daysUntilHarvest} Days To Maturity
+                        </CardText>
+                        <CardText >
+                            Plant from {plant.plantingDateStart} until {plant.plantingDateEnd}
+                        </CardText>
+                        <CardText >
+                            Planting depth {plant.plantingDepth}
+                        </CardText>
+                        <CardText >
+                            Spacing {plant.spacing}
+                        </CardText>
                     </CardBody>
                     {(this.state.showPlantOptions)
                         ? <React.Fragment>

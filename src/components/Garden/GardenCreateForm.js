@@ -82,7 +82,7 @@ export default class GardenCreateForm extends Component {
                             <Button onClick={this.createNewLocation}
                                 color="primary"
                                 size="sm">
-                                Submit
+                                Create Location
                             </Button>
                             <Button onClick={this.toggleLocationMode}
                                 color="secondary"
@@ -115,14 +115,31 @@ export default class GardenCreateForm extends Component {
                     <Label for="gardenNotes">Notes</Label>
                     <Input onChange={this.handleFieldChange} type="textarea" name="gardenNotes" id="gardenNotes" />
                 </FormGroup>
-                <Button onClick={this.createNewGarden}
-                    color="primary" >
-                    Submit
-                </Button>
-                <Button onClick={() => this.props.history.push("/")}
-                    color="secondary" >
-                    Cancel
-                </Button>
+                {this.state.createLocationMode === false
+                    ? <React.Fragment>
+                        <Button onClick={this.createNewGarden}
+                            color="primary" >
+                            Submit
+                        </Button>
+                        <Button onClick={() => this.props.history.push("/")}
+                            color="secondary" >
+                            Cancel
+                        </Button>
+                    </React.Fragment>
+                    : <React.Fragment>
+                        <Button onClick={this.createNewGarden}
+                            color="primary"
+                            disabled >
+                            Submit
+                        </Button>
+                        <Button onClick={() => this.props.history.push("/")}
+                            color="secondary"
+                            disabled >
+                            Cancel
+                        </Button>
+                    </React.Fragment>
+                }
+
             </Form>
         )
     }

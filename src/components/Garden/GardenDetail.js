@@ -193,7 +193,7 @@ export default class GardenDetail extends Component {
                     </Input>
                     {this.state.plantSelect === "new"
                         ? <InputGroupAddon addonType="append">
-                            <Button onClick={this.props.history.push(`/plants/new/${thisGarden.id}`)}
+                            <Button onClick={() => this.props.history.push(`/plants/new/${thisGarden.id}`)}
                                 color="success" >
                                 Create a New Plant
                             </Button>
