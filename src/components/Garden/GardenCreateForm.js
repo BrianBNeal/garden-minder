@@ -115,6 +115,7 @@ export default class GardenCreateForm extends Component {
                     <Label for="gardenNotes">Notes</Label>
                     <Input onChange={this.handleFieldChange} type="textarea" name="gardenNotes" id="gardenNotes" />
                 </FormGroup>
+                {/* condition to disable submit buttons for garden when creating a new location */}
                 {this.state.createLocationMode === false
                     ? <React.Fragment>
                         <Button onClick={this.createNewGarden}

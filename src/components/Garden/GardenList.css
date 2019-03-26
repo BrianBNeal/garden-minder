@@ -8,12 +8,12 @@
     width: 60%;
     margin-top: 35px;
     cursor: pointer;
-    background-color: rgba(225, 240, 225, 0.5);
+    background-color: rgba(215, 240, 215, 0.5);
     color: black;
 }
 
 .garden-list .card:hover {
-    border: 1.5px solid darkgreen;
+    border: 1.5px solid #667836;
 }
 
 .card-notes {
