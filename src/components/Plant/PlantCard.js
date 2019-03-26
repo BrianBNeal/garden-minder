@@ -28,6 +28,10 @@ export default class PlantCard extends Component {
                     <CardBody>
                         <CardTitle>
                             {plant.name}
+                            <Button
+                                color="link">
+                                add note
+                            </Button>
                         </CardTitle>
                         <CardText>
                             {plant.startIndoors ? "Start indoors" : "Direct sow outdoors"}
@@ -45,6 +49,8 @@ export default class PlantCard extends Component {
                             Spacing {plant.spacing}
                         </CardText>
                     </CardBody>
+
+                    {/* hidden footer with buttons */}
                     {(this.state.showPlantOptions)
                         ? <React.Fragment>
                             <Button onClick={this.togglePlantOptions}
@@ -58,7 +64,13 @@ export default class PlantCard extends Component {
                                     color="primary"
                                     size="sm" >
                                     add a note
-                            </Button>
+                                </Button>
+                                <Button onClick={() => this.props.history.push(`/plants/edit/${thisGardenPlant.id}`)}
+                                    className="remove-button"
+                                    color="primary"
+                                    size="sm" >
+                                    edit plant information
+                                </Button>
                                 <Button onClick={(event) => this.remove(event, thisGardenPlant)}
                                     className="remove-button"
                                     color="danger"

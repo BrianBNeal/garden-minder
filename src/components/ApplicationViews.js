@@ -5,6 +5,7 @@ import GardenEditForm from "./Garden/GardenEditForm"
 import GardenList from "./Garden/GardenList"
 import PlantCreateForm from "./Plant/PlantCreateForm"
 import PlantDetail from "./Plant/PlantDetail"
+import PlantEditForm from "./Plant/PlantEditForm"
 import ReminderCreateForm from "./Reminder/ReminderCreateForm"
 import ReminderEditForm from "./Reminder/ReminderEditForm"
 import React, { Component } from "react"
@@ -54,7 +55,7 @@ export default class ApplicationViews extends Component {
   addPlant = (plantObj) => {
     return DataManager.add("plants", plantObj)
       .then(() => DataManager.getAll("plants"))
-      .then(plants => this.setState({plants: plants}))
+      .then(plants => this.setState({ plants: plants }))
   }
 
   addReminder = (reminderObj) => {
@@ -88,6 +89,12 @@ export default class ApplicationViews extends Component {
       .then(gardens => this.setState({ gardens: gardens }))
   }
 
+  updatePlant = (plantObj) => {
+    return DataManager.edit("plants", plantObj)
+      .then(() => DataManager.getAll("plants"))
+      .then(plants => this.setState({ plants: plants }))
+  }
+
   updateReminder = (reminderObj) => {
     return DataManager.edit("reminders", reminderObj)
       .then(() => DataManager.getAll("reminders"))
@@ -115,6 +122,7 @@ export default class ApplicationViews extends Component {
 
     return <React.Fragment>
 
+      {/* List of open gardens */}
       <Route exact path="/" render={props => {
         return <GardenList {...props}
           gardens={this.state.gardens}
@@ -123,6 +131,7 @@ export default class ApplicationViews extends Component {
       }}
       />
 
+      {/* List of closed gardens */}
       <Route path="/gardens/history" render={props => {
         return <GardenList {...props}
           gardens={this.state.gardens}
@@ -159,6 +168,15 @@ export default class ApplicationViews extends Component {
       <Route path="/plants/new/:gardenId(\d+)/" render={props => {
         return <PlantCreateForm {...props}
           addPlant={this.addPlant}
+        />
+      }}
+      />
+
+      {/* uses gardenPlantId instead of plantId in order to navigate back to the garden, it has access to both the gardenId and plantId */}
+      <Route path="/plants/edit/:gardenPlantId(\d+)/" render={props => {
+        return <PlantEditForm {...props}
+          plants={this.state.plants}
+          updatePlant={this.updatePlant}
         />
       }}
       />
