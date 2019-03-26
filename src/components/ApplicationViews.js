@@ -4,7 +4,6 @@ import GardenDetail from "./Garden/GardenDetail"
 import GardenEditForm from "./Garden/GardenEditForm"
 import GardenList from "./Garden/GardenList"
 import PlantCreateForm from "./Plant/PlantCreateForm"
-import PlantDetail from "./Plant/PlantDetail"
 import PlantEditForm from "./Plant/PlantEditForm"
 import ReminderCreateForm from "./Reminder/ReminderCreateForm"
 import ReminderEditForm from "./Reminder/ReminderEditForm"
@@ -20,6 +19,7 @@ export default class ApplicationViews extends Component {
     gardens: [],
     gardenPlants: [],
     locations: [],
+    plantNotes: [],
     plants: [],
     reminders: []
   }
@@ -113,6 +113,8 @@ export default class ApplicationViews extends Component {
       .then(gardenPlants => newState.gardenPlants = gardenPlants)
       .then(() => DataManager.getAll("plants"))
       .then(plants => newState.plants = plants)
+      .then(() => DataManager.getAll("plantNotes"))
+      .then(plantNotes => newState.plantNotes = plantNotes)
       .then(() => DataManager.getAll("reminders"))
       .then(reminders => newState.reminders = reminders)
       .then(() => this.setState(newState))
@@ -127,7 +129,8 @@ export default class ApplicationViews extends Component {
         return <GardenList {...props}
           gardens={this.state.gardens}
           gardenPlants={this.state.gardenPlants}
-          plants={this.state.plants} />
+          plants={this.state.plants}
+          reminders={this.state.reminders} />
       }}
       />
 
@@ -136,7 +139,8 @@ export default class ApplicationViews extends Component {
         return <GardenList {...props}
           gardens={this.state.gardens}
           gardenPlants={this.state.gardenPlants}
-          plants={this.state.plants} />
+          plants={this.state.plants}
+          reminders={this.state.reminders} />
       }}
       />
 
@@ -153,15 +157,6 @@ export default class ApplicationViews extends Component {
           reminders={this.state.reminders}
           updateGarden={this.updateGarden}
           updateReminder={this.updateReminder} />
-      }}
-      />
-
-      <Route path="/plants/:plantId(\d+)/" render={props => {
-        return <PlantDetail {...props}
-          gardens={this.state.gardens}
-          gardenPlants={this.state.gardenPlants}
-          locations={this.state.locations}
-          plants={this.state.plants} />
       }}
       />
 

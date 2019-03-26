@@ -20,7 +20,7 @@ export default class PlantCard extends Component {
 
     render() {
         const plant = this.props.plant
-        const thisGardenPlant = this.props.gardenPlants.find(gp => gp.plantId === plant.id && gp.gardenId === this.props.thisGarden.id)
+        const thisGardenPlant = this.props.gardenPlants.find(gp => gp.plantId === plant.id && gp.gardenId === this.props.garden.id)
 
         return (
             <React.Fragment>
@@ -59,7 +59,7 @@ export default class PlantCard extends Component {
                                 hide options
                             </Button>
                             <CardFooter>
-                                <Button onClick={(event) => this.remove(event, thisGardenPlant)}
+                                <Button
                                     className="remove-button"
                                     color="primary"
                                     size="sm" >

@@ -50,6 +50,7 @@ export default class PlantEditForm extends Component {
     componentDidMount() {
         DataManager.get("gardenPlants", this.props.match.params.gardenPlantId)
             .then(gp => {
+
                 const thisPlant = this.props.plants.find(plant => plant.id === gp.plantId) || {}
 
                 this.setState({

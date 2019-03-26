@@ -21,7 +21,8 @@ export default class GardenList extends Component {
                                     history={this.props.history}
                                     garden={garden}
                                     gardenPlants={this.props.gardenPlants}
-                                    plants={this.props.plants} />
+                                    plants={this.props.plants}
+                                    reminders={this.props.reminders} />
                             })}
                         </section>
                         : null
@@ -37,7 +38,8 @@ export default class GardenList extends Component {
                                     history={this.props.history}
                                     garden={garden}
                                     gardenPlants={this.props.gardenPlants}
-                                    plants={this.props.plants} />
+                                    plants={this.props.plants}
+                                    reminders={this.props.reminders} />
                             })}
                         </section>
                         : null
