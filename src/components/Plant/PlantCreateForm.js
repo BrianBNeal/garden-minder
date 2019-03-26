@@ -5,7 +5,7 @@ export default class PlantCreateForm extends Component {
 
     state = {
         plantName: "",
-        startIndoors: "",
+        startIndoors: false,
         measureUnit: "",
         daysUntilHarvest: "",
         plantingDepth: "",
@@ -25,22 +25,26 @@ export default class PlantCreateForm extends Component {
         evt.preventDefault();
 
         //if statement to make sure required fields are filled out
+        if (!this.state.plantName) {
+            window.alert("Please provide a plant name")
+        } else {
 
-        const newPlantObj = {
-            daysUntilHarvest: this.state.daysUntilHarvest,
-            harvestMeasureUnit: this.state.measureUnit,
-            name: this.state.plantName,
-            plantingDateEnd: this.state.plantingDateEnd,
-            plantingDateStart: this.state.plantingDateStart,
-            plantingDepth: this.state.plantingDepth,
-            spacing: this.state.spacing,
-            startIndoors: this.state.startIndoors,
-            sunExposure: this.state.sunExposure
+            const newPlantObj = {
+                daysUntilHarvest: this.state.daysUntilHarvest,
+                harvestMeasureUnit: this.state.measureUnit,
+                name: this.state.plantName,
+                plantingDateEnd: this.state.plantingDateEnd,
+                plantingDateStart: this.state.plantingDateStart,
+                plantingDepth: this.state.plantingDepth,
+                spacing: this.state.spacing,
+                startIndoors: this.state.startIndoors,
+                sunExposure: this.state.sunExposure
+            }
+
+            //send back to ApplicationViews for fetch and setState
+            this.props.addPlant(newPlantObj)
+                .then(() => this.props.history.push(`/gardens/${this.props.match.params.gardenId}`))
         }
-
-        //send back to ApplicationViews for fetch and setState
-        this.props.addPlant(newPlantObj)
-            .then(() => this.props.history.push(`/gardens/${this.props.match.params.gardenId}`))
     }
 
     render() {
@@ -51,7 +55,7 @@ export default class PlantCreateForm extends Component {
                     <Row form>
                         <Col md={5}>
                             <FormGroup>
-                                <Label for="plantName">Plant Name<span style={{ color: "red", fontWeight: "bolder"}}>*</span></Label>
+                                <Label for="plantName">Plant Name<span style={{ color: "red", fontWeight: "bolder" }}>*</span></Label>
                                 <Input onChange={this.handleFieldChange} type="text" name="plantName" id="plantName" placeholder="San Marzano Tomatoes" />
                             </FormGroup>
                         </Col>
