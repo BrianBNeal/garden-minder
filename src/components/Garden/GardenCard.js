@@ -1,7 +1,6 @@
 import React, { Component } from "react"
 import { Card, CardText, CardBody, CardTitle, CardSubtitle } from 'reactstrap'
 import moment from "moment"
-// import "./GardenCard.css"
 
 export default class GardenCard extends Component {
 
@@ -26,6 +25,7 @@ export default class GardenCard extends Component {
                                 <span> & Closed on {moment(garden.dateClosed).format("MMMM DD, YYYY")}</span>
                                 : null}
                         </CardSubtitle>
+                        <CardText>{plants.length} plants</CardText>
                         {plants.map(plant => <CardText key={plant.id}>{plant.name}</CardText>)}
                         <pre className="card-notes">{garden.notes}</pre>
                     </CardBody>
