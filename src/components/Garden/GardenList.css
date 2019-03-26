@@ -1,0 +1,33 @@
+.garden-list {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.garden-list .card {
+    width: 60%;
+    margin-top: 35px;
+    cursor: pointer;
+    background-color: rgba(225, 240, 225, 0.5);
+    color: black;
+}
+
+.garden-list .card:hover {
+    border: 1.5px solid darkgreen;
+}
+
+.card-notes {
+    color: black;
+    font-size: 1.1em;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+#app-title {
+    margin: auto;
+    margin-top: 40px;
+    margin-bottom: 60px;
+    width: 70%;
+    text-align: center;
+    font-size: 6em;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}

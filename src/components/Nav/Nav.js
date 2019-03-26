@@ -14,29 +14,30 @@ export default class MyNavbar extends Component {
   render() {
     return (
       <React.Fragment>
-        <Navbar color="light" light expand="md" fixed="top">
-          <Nav className="mr-auto" navbar>
+        <Navbar dark expand="md" fixed="top">
+          <Nav className="nav-links-div mr-auto" navbar>
             <NavItem>
-              <Link light to="/">Garden Minder</Link>
+              <Link className="nav-link" to="/">Garden Minder</Link>
             </NavItem>
             <NavItem>
-              <Link to="/gardens/new">Create a Garden</Link>
+              <Link className="nav-link" to="/gardens/new">Create a Garden</Link>
             </NavItem>
             <NavItem>
-              <Link to="/gardens/history">Past Gardens</Link>
+              <Link className="nav-link" to="/gardens/history">Past Gardens</Link>
             </NavItem>
           </Nav>
-          <Nav className="" navbar>
+          <Nav navbar className="nav-buttons-div">
             <NavItem>
-              <NavbarBrand >
+              <NavbarBrand id="welcome-message">
                 Welcome, {this.props.activeUser.username}!
               </NavbarBrand>
             </NavItem>
             <NavItem className="logout-div">
               <Button onClick={this.logout}
-                outline color="primary"
+                id="logout-btn"
+                color="secondary"
                 type="button"
-                className="btn btn-outline-info" >
+              >
                 Logout
               </Button>
             </NavItem>

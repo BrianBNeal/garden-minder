@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import GardenCard from "./GardenCard"
+import "./GardenList.css"
 
 export default class GardenList extends Component {
 
@@ -8,6 +9,7 @@ export default class GardenList extends Component {
 
         return (
             <React.Fragment>
+                <div id="app-title">Garden Minder</div>
                 {//show only open gardens in main Route "/"
                     (this.props.location.pathname === "/")
                         ? <section className="garden-list">

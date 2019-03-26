@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Card, CardText, CardBody, CardTitle, CardSubtitle } from 'reactstrap'
 import moment from "moment"
-import "./GardenCard.css"
+// import "./GardenCard.css"
 
 export default class GardenCard extends Component {
 
@@ -27,7 +27,7 @@ export default class GardenCard extends Component {
                                 : null}
                         </CardSubtitle>
                         {plants.map(plant => <CardText key={plant.id}>{plant.name}</CardText>)}
-                        <pre>{garden.notes}</pre>
+                        <pre className="card-notes">{garden.notes}</pre>
                     </CardBody>
                 </Card>
             </React.Fragment>
