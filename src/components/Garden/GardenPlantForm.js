@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import { InputGroup, Input, InputGroupAddon, Button } from "reactstrap"
 import moment from "moment"
 
-export default class GardenAddPlantForm extends Component {
+export default class GardenPlantForm extends Component {
 
     state = {
         plantSelect: "",

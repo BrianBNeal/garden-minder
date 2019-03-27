@@ -1,9 +1,8 @@
 import React, { Component } from "react"
-import GardenAddPlantForm from "./GardenAddPlantForm"
+import GardenPlantForm from "./GardenPlantForm"
 import GardenNotes from "./GardenNotes"
 import PlantList from "../Plant/PlantList"
 import { Button } from "reactstrap"
-import DataManager from "../../modules/DataManager"
 import ReminderList from "../Reminder/ReminderList"
 
 export default class GardenDetail extends Component {
@@ -33,8 +32,7 @@ export default class GardenDetail extends Component {
             .map(gp =>
                 this.props.plants.find(
                     p => p.id === gp.plantId
-                )) || {}
-
+                ))
 
         return (
             <React.Fragment>
@@ -47,26 +45,30 @@ export default class GardenDetail extends Component {
                     </Button>
                 </section>
 
-                {/* Notes */}
                 <GardenNotes
                     garden={thisGarden}
                     updateGarden={this.props.updateGarden}
+                    history={this.props.history}
                 />
 
                 <ReminderList
                     garden={thisGarden}
                     reminders={this.props.reminders}
+                    history={this.props.history}
                 />
 
                 <PlantList
+                    addPlantNote={this.props.addPlantNote}
                     deleteGardenPlant={this.props.deleteGardenPlant}
+                    deletePlantNote={this.props.deletePlantNote}
                     garden={thisGarden}
                     gardenPlants={this.props.gardenPlants}
                     history={this.props.history}
+                    plantNotes={this.props.plantNotes}
                     plants={plantsInThisGarden}
                     />
 
-                <GardenAddPlantForm
+                <GardenPlantForm
                     garden={thisGarden}
                     gardenPlants={this.props.gardenPlants}
                     history={this.props.history}
