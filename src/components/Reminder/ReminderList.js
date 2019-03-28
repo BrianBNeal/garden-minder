@@ -1,42 +1,31 @@
 import React, { Component } from "react"
-import { Button, InputGroupText, InputGroup, Input, InputGroupAddon } from "reactstrap"
-import moment from "moment"
+import { Button } from "reactstrap"
+import Reminder from "./Reminder"
+
 
 export default class ReminderList extends Component {
 
-    completeReminder = () => {
-        this.props.reminder.completed = !this.props.reminder.completed
-        this.props.updateReminder(this.props.reminder)
-    }
-
     render() {
-        const reminder = this.props.reminder
-
         return (
-            <React.Fragment>
-                <InputGroup>
-                    <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
-                            <Input onChange={this.completeReminder}
-                                addon
-                                type="checkbox"
-                                aria-label="Checkbox for following reminder text" />
-                        </InputGroupText>
-                    </InputGroupAddon>
-                    <InputGroupText className="reminderDetails">
-                        <section>
-                            <div className="reminderText">{reminder.text}</div>
-                            <div className="reminderDate">{(reminder.date) ? moment(reminder.date).format("MMMM D, YYYY") : "no date set"}</div>
-                        </section>
-                    </InputGroupText>
-                    <InputGroupAddon addonType="append">
-                        <Button onClick={() => this.props.history.push(`/reminders/edit/${reminder.id}`)}
-                            color="link">
-                            edit
-                        </Button>
-                    </InputGroupAddon>
-                </InputGroup>
-            </React.Fragment>
+            <section className="gardenReminders">
+                <div>
+                    Reminders (check to mark completed)
+        <Button onClick={() => this.props.history.push(`/reminders/new/${this.props.garden.id}`)}
+                        color="link"
+                        size="sm">
+                        add reminder
+        </Button>
+                </div>
+                {this.props.reminders.filter(reminder => reminder.gardenId === this.props.garden.id).map(reminder =>
+                    (reminder.completed === false)
+                        ? <Reminder key={reminder.id}
+                            updateReminder={this.props.updateReminder}
+                            reminder={reminder}
+                            history={this.props.history}
+                        />
+                        : null
+                )}
+            </section>
         )
     }
 }

@@ -4,7 +4,6 @@ import GardenDetail from "./Garden/GardenDetail"
 import GardenEditForm from "./Garden/GardenEditForm"
 import GardenList from "./Garden/GardenList"
 import PlantCreateForm from "./Plant/PlantCreateForm"
-import PlantDetail from "./Plant/PlantDetail"
 import PlantEditForm from "./Plant/PlantEditForm"
 import ReminderCreateForm from "./Reminder/ReminderCreateForm"
 import ReminderEditForm from "./Reminder/ReminderEditForm"
@@ -20,6 +19,7 @@ export default class ApplicationViews extends Component {
     gardens: [],
     gardenPlants: [],
     locations: [],
+    plantNotes: [],
     plants: [],
     reminders: []
   }
@@ -58,6 +58,12 @@ export default class ApplicationViews extends Component {
       .then(plants => this.setState({ plants: plants }))
   }
 
+  addPlantNote = (plantNoteObj) => {
+    return DataManager.add("plantNotes", plantNoteObj)
+      .then(() => DataManager.getAll("plantNotes"))
+      .then(plantNotes => this.setState({plantNotes: plantNotes}))
+  }
+
   addReminder = (reminderObj) => {
     return DataManager.add("reminders", reminderObj)
       .then(() => DataManager.getAll("reminders"))
@@ -77,10 +83,16 @@ export default class ApplicationViews extends Component {
       .then(gardens => this.setState({ gardens: gardens }))
   }
 
-  deleteGardenPlant = (id, event) => {
+  deleteGardenPlant = (id) => {
     return DataManager.delete("gardenPlants", id)
       .then(() => DataManager.getAll("gardenPlants"))
       .then(gp => this.setState({ gardenPlants: gp }))
+  }
+
+  deletePlantNote = (id) => {
+    return DataManager.delete("plantNotes", id)
+      .then(() => DataManager.getAll("plantNotes"))
+      .then(plantNotes => this.setState({plantNotes: plantNotes}))
   }
 
   updateGarden = (gardenObj) => {
@@ -93,6 +105,12 @@ export default class ApplicationViews extends Component {
     return DataManager.edit("plants", plantObj)
       .then(() => DataManager.getAll("plants"))
       .then(plants => this.setState({ plants: plants }))
+  }
+
+  updatePlantNote = (plantNoteObj) => {
+    return DataManager.edit("plantNotes", plantNoteObj)
+      .then(() => DataManager.getAll("plantNotes"))
+      .then(plantNotes => this.setState({plantNotes: plantNotes}))
   }
 
   updateReminder = (reminderObj) => {
@@ -113,6 +131,8 @@ export default class ApplicationViews extends Component {
       .then(gardenPlants => newState.gardenPlants = gardenPlants)
       .then(() => DataManager.getAll("plants"))
       .then(plants => newState.plants = plants)
+      .then(() => DataManager.getAll("plantNotes"))
+      .then(plantNotes => newState.plantNotes = plantNotes)
       .then(() => DataManager.getAll("reminders"))
       .then(reminders => newState.reminders = reminders)
       .then(() => this.setState(newState))
@@ -127,7 +147,8 @@ export default class ApplicationViews extends Component {
         return <GardenList {...props}
           gardens={this.state.gardens}
           gardenPlants={this.state.gardenPlants}
-          plants={this.state.plants} />
+          plants={this.state.plants}
+          reminders={this.state.reminders} />
       }}
       />
 
@@ -136,35 +157,33 @@ export default class ApplicationViews extends Component {
         return <GardenList {...props}
           gardens={this.state.gardens}
           gardenPlants={this.state.gardenPlants}
-          plants={this.state.plants} />
+          plants={this.state.plants}
+          reminders={this.state.reminders} />
       }}
       />
 
+      {/* View a single garden */}
       <Route path="/gardens/:gardenId(\d+)/" render={props => {
         return <GardenDetail {...props}
           addGardenPlant={this.addGardenPlant}
+          addPlantNote={this.addPlantNote}
           closeGarden={this.closeGarden}
           deleteGarden={this.deleteGarden}
           deleteGardenPlant={this.deleteGardenPlant}
+          deletePlantNote={this.deletePlantNote}
           gardens={this.state.gardens}
           gardenPlants={this.state.gardenPlants}
           locations={this.state.locations}
+          plantNotes={this.state.plantNotes}
           plants={this.state.plants}
           reminders={this.state.reminders}
           updateGarden={this.updateGarden}
+          updatePlantNote={this.updatePlantNote}
           updateReminder={this.updateReminder} />
       }}
       />
 
-      <Route path="/plants/:plantId(\d+)/" render={props => {
-        return <PlantDetail {...props}
-          gardens={this.state.gardens}
-          gardenPlants={this.state.gardenPlants}
-          locations={this.state.locations}
-          plants={this.state.plants} />
-      }}
-      />
-
+      {/* form for creating a new plant in the database */}
       <Route path="/plants/new/:gardenId(\d+)/" render={props => {
         return <PlantCreateForm {...props}
           addPlant={this.addPlant}
@@ -172,7 +191,9 @@ export default class ApplicationViews extends Component {
       }}
       />
 
-      {/* uses gardenPlantId instead of plantId in order to navigate back to the garden, it has access to both the gardenId and plantId */}
+      {/* form for editing the information on a single plant type in the database.
+      Uses gardenPlantId instead of plantId in order to navigate back to the garden
+      since it has access to both the gardenId and plantId */}
       <Route path="/plants/edit/:gardenPlantId(\d+)/" render={props => {
         return <PlantEditForm {...props}
           plants={this.state.plants}
@@ -181,6 +202,7 @@ export default class ApplicationViews extends Component {
       }}
       />
 
+      {/* form for creating a new garden */}
       <Route path="/gardens/new" render={props => {
         return <GardenCreateForm {...props}
           addLocation={this.addLocation}
@@ -190,7 +212,8 @@ export default class ApplicationViews extends Component {
       }}
       />
 
-      {/* this route uses the gardenId to navigate back to GardenDetails */}
+      {/* form for creating a new reminder
+      this route uses the gardenId to navigate back to GardenDetails */}
       <Route path="/reminders/new/:gardenId(\d+)/" render={props => {
         return <ReminderCreateForm {...props}
           addReminder={this.addReminder}
@@ -198,7 +221,8 @@ export default class ApplicationViews extends Component {
       }}
       />
 
-      {/* this route uses reminderId for the GET and then reminder.gardenId to navigate back */}
+      {/* form for editing a reminder
+      this route uses reminderId for the GET and then reminder.gardenId to navigate back */}
       <Route path="/reminders/edit/:reminderId(\d+)/" render={props => {
         return <ReminderEditForm {...props}
           updateReminder={this.updateReminder}
@@ -206,6 +230,7 @@ export default class ApplicationViews extends Component {
       }}
       />
 
+      {/* form for editing the info on a single garden */}
       <Route path="/gardens/edit/:gardenId(\d+)/" render={props => {
         return <GardenEditForm {...props}
           addLocation={this.addLocation}
