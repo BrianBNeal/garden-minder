@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import {Form, FormGroup, Label, Input, Button} from "reactstrap"
+import { Form, FormGroup, Label, Input, Button } from "reactstrap"
 import DataManager from "../../modules/DataManager"
 
 export default class GardenNotes extends Component {
@@ -61,11 +61,14 @@ export default class GardenNotes extends Component {
                         </React.Fragment>
                         : <React.Fragment>
                             <pre>{this.props.garden.notes}</pre>
-                            <Button onClick={this.toggleEditNotesMode}
-                                color="link"
-                                size="sm" >
-                                edit notes
+                            {(this.props.location.pathname.includes("history"))
+                                ? null
+                                : <Button onClick={this.toggleEditNotesMode}
+                                    color="link"
+                                    size="sm" >
+                                    edit notes
                                 </Button>
+                            }
                         </React.Fragment>
                 }
             </React.Fragment>

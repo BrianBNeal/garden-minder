@@ -19,74 +19,105 @@ export default class GardenDetail extends Component {
         const doubleCheck = window.confirm("Are you sure? This will permanently delete this garden and all of its information.")
         if (doubleCheck === true) {
             this.props.deleteGarden(gardenId)
-                .then(() => this.props.history.push("/"))
+                .then(() => {
+                    if (this.props.location.pathname.includes("history")) {
+                        this.props.history.push("/gardens/history")
+                    } else {
+                        this.props.history.push("/")
+                    }
+                })
         }
     }
 
-    render() {
+        render() {
 
-        const thisGarden = this.props.gardens.find(
-            garden => (garden.id === parseInt(this.props.match.params.gardenId))) || {}
+            const thisGarden = this.props.gardens.find(
+                garden => (garden.id === parseInt(this.props.match.params.gardenId))) || {}
 
-        const plantsInThisGarden = this.props.gardenPlants.filter(gp => gp.gardenId === thisGarden.id)
-            .map(gp =>
-                this.props.plants.find(
-                    p => p.id === gp.plantId
-                ))
+            const plantsInThisGarden = this.props.gardenPlants.filter(gp => gp.gardenId === thisGarden.id)
+                .map(gp =>
+                    this.props.plants.find(
+                        p => p.id === gp.plantId
+                    ))
 
-        return (
-            <React.Fragment>
-                <section>
-                    <h1>{thisGarden.name}</h1>
-                    <Button onClick={() => this.props.history.push(`/gardens/edit/${thisGarden.id}`)}
-                        color="link"
-                        size="sm">
-                        edit garden info
+            return (
+                <React.Fragment>
+                    <section>
+                        <Button onClick={() => this.props.history.goBack()}
+                            color="link">
+                            Go Back
                     </Button>
-                </section>
+                        {/* include (CLOSED) with garden name if garden is closed */
+                            (this.props.location.pathname.includes("history"))
+                                ? <h1>{thisGarden.name} (CLOSED)</h1>
+                                : <h1>{thisGarden.name}</h1>
+                        }
+                        {/* hide edit garden info button if closed */
+                            (this.props.location.pathname.includes("history"))
+                                ? null
+                                : <Button onClick={() => this.props.history.push(`/gardens/edit/${thisGarden.id}`)}
+                                    color="link"
+                                    size="sm">
+                                    edit garden info
+                        </Button>
+                        }
 
-                <GardenNotes
-                    garden={thisGarden}
-                    updateGarden={this.props.updateGarden}
-                    history={this.props.history}
-                />
+                    </section>
 
-                <ReminderList
-                    garden={thisGarden}
-                    reminders={this.props.reminders}
-                    history={this.props.history}
-                />
-
-                <PlantList
-                    addPlantNote={this.props.addPlantNote}
-                    deleteGardenPlant={this.props.deleteGardenPlant}
-                    deletePlantNote={this.props.deletePlantNote}
-                    garden={thisGarden}
-                    gardenPlants={this.props.gardenPlants}
-                    history={this.props.history}
-                    plantNotes={this.props.plantNotes}
-                    plants={plantsInThisGarden}
-                    updatePlantNote={this.props.updatePlantNote}
+                    <GardenNotes
+                        garden={thisGarden}
+                        updateGarden={this.props.updateGarden}
+                        history={this.props.history}
+                        location={this.props.location}
                     />
 
-                <GardenPlantForm
-                    garden={thisGarden}
-                    gardenPlants={this.props.gardenPlants}
-                    history={this.props.history}
-                    plants={this.props.plants}
-                    addGardenPlant={this.props.addGardenPlant}
-                />
+                    {/* hide reminders if closed */
+                        (this.props.location.pathname.includes("history"))
+                            ? null
+                            : <ReminderList
+                                garden={thisGarden}
+                                reminders={this.props.reminders}
+                                history={this.props.history}
+                            />
+                    }
 
-                <Button onClick={() => this.confirmClose(thisGarden)}
-                    color="warning" >
-                    Close Garden
-                </Button>
-                <Button onClick={() => this.confirmDelete(thisGarden.id)}
-                    color="danger" >
-                    Delete Garden
+                    <PlantList
+                        addPlantNote={this.props.addPlantNote}
+                        deleteGardenPlant={this.props.deleteGardenPlant}
+                        deletePlantNote={this.props.deletePlantNote}
+                        garden={thisGarden}
+                        gardenPlants={this.props.gardenPlants}
+                        history={this.props.history}
+                        location={this.props.location}
+                        plantNotes={this.props.plantNotes}
+                        plants={plantsInThisGarden}
+                        updatePlantNote={this.props.updatePlantNote}
+                    />
+
+                    {/* hide form to add plants AND button to close garden if closed */
+                        (this.props.location.pathname.includes("history"))
+                            ? null
+                            : <React.Fragment>
+                                <GardenPlantForm
+                                    garden={thisGarden}
+                                    gardenPlants={this.props.gardenPlants}
+                                    history={this.props.history}
+                                    plants={this.props.plants}
+                                    addGardenPlant={this.props.addGardenPlant}
+                                />
+
+                                <Button onClick={() => this.confirmClose(thisGarden)}
+                                    color="warning" >
+                                    Close Garden
+                        </Button>
+                            </React.Fragment>
+                    }
+                    <Button onClick={() => this.confirmDelete(thisGarden.id)}
+                        color="danger" >
+                        Delete Garden
                 </Button>
 
-            </React.Fragment>
-        )
+                </React.Fragment>
+            )
+        }
     }
-}

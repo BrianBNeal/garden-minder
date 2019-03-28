@@ -146,7 +146,7 @@ export default class GardenEditForm extends Component {
                                 color="primary" >
                                 Update
                         </Button>
-                            <Button onClick={() => this.props.history.push("/")}
+                            <Button onClick={() => this.props.history.push(`/gardens/${this.props.match.params.gardenId}`)}
                                 color="secondary" >
                                 Cancel
                         </Button>

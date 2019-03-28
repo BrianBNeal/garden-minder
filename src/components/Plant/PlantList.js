@@ -14,6 +14,7 @@ export default class PlantList extends Component {
                         garden={this.props.garden}
                         gardenPlants={this.props.gardenPlants}
                         history={this.props.history}
+                        location={this.props.location}
                         plant={plant}
                         plantNotes={this.props.plantNotes}
                         updatePlantNote={this.props.updatePlantNote}
