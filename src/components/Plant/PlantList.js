@@ -15,7 +15,8 @@ export default class PlantList extends Component {
                         gardenPlants={this.props.gardenPlants}
                         history={this.props.history}
                         plant={plant}
-                        plantNotes={this.props.plantNotes   }
+                        plantNotes={this.props.plantNotes}
+                        updatePlantNote={this.props.updatePlantNote}
                     />
                 )}
             </React.Fragment>

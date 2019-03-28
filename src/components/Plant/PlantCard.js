@@ -56,6 +56,7 @@ export default class PlantCard extends Component {
                         {/* notes about that plant created by user */}
                         <PlantNotesList
                             deletePlantNote={this.props.deletePlantNote}
+                            updatePlantNote={this.props.updatePlantNote}
                             plant={this.props.plant}
                             plantNotes={this.props.plantNotes}
                         />

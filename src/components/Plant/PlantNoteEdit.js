@@ -1,13 +1,10 @@
 import React, { Component } from "react"
 import { Input, Label, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap"
-import DataManager from "../../modules/DataManager";
 
 export default class PlantNoteEdit extends Component {
 
     state = {
-        note: "",
-        plantId: this.props.plant.id,
-        userId: parseInt(sessionStorage.getItem("credentials")),
+        noteEdit: "",
     }
 
     handleFieldChange = (evt) => {
@@ -16,40 +13,42 @@ export default class PlantNoteEdit extends Component {
         this.setState(stateToChange)
     }
 
-    updateExistingPlantNote = (evt) => {
-        if (this.state.note) {
+    editExistingPlantNote = (evt) => {
+        if (this.state.noteEdit) {
             const editedPlantNoteObj = {
-                note: this.state.note,
-                plantId: this.state.plantId,
-                userId: this.state.userId
+                note: this.state.noteEdit,
+                plantId: this.props.note.plantId,
+                userId: this.props.note.userId,
+                id: this.props.note.id
             }
 
-            this.props.addPlantNote(editedPlantNoteObj)
-            .then(() => this.props.toggleAddPlantNotes())
+            this.props.updatePlantNote(editedPlantNoteObj)
+            .then(() => this.props.toggleEditPlantNote())
         } else {
             window.alert("please provide a note")
         }
     }
 
-    componentDidMount() {
-        DataManager.get("plantNotes", this.props.match.params.plantNoteId)
+    componentDidMount () {
+        this.setState({noteEdit: this.props.note.note})
     }
 
     render() {
         return (
             <React.Fragment>
-                <ModalHeader toggle={this.props.toggleAddPlantNotes}>Make a note about {this.props.plantName}</ModalHeader>
+                <ModalHeader toggle={this.props.toggleEditPlantNote}>Edit this note about {this.props.plant.name}</ModalHeader>
                 <ModalBody>
-                        <Label>Note about this plant:</Label>
+                        <Label>Note:</Label>
                         <Input onChange={this.handleFieldChange}
-                            id="note"
                             type="text"
+                            id="noteEdit"
+                            value={this.state.noteEdit}
                             placeholder="type a note here!"
                         ></Input>
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="primary" onClick={this.updateExistingPlantNote}>Update Note</Button>{' '}
-                    <Button color="secondary" onClick={this.props.toggleAddPlantNotes}>Cancel</Button>
+                    <Button color="primary" onClick={this.editExistingPlantNote}>Update Note</Button>{' '}
+                    <Button color="secondary" onClick={this.props.toggleEditPlantNote}>Cancel</Button>
                 </ModalFooter>
             </React.Fragment>
         )

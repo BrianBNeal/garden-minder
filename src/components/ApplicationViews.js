@@ -107,6 +107,12 @@ export default class ApplicationViews extends Component {
       .then(plants => this.setState({ plants: plants }))
   }
 
+  updatePlantNote = (plantNoteObj) => {
+    return DataManager.edit("plantNotes", plantNoteObj)
+      .then(() => DataManager.getAll("plantNotes"))
+      .then(plantNotes => this.setState({plantNotes: plantNotes}))
+  }
+
   updateReminder = (reminderObj) => {
     return DataManager.edit("reminders", reminderObj)
       .then(() => DataManager.getAll("reminders"))
@@ -172,6 +178,7 @@ export default class ApplicationViews extends Component {
           plants={this.state.plants}
           reminders={this.state.reminders}
           updateGarden={this.updateGarden}
+          updatePlantNote={this.updatePlantNote}
           updateReminder={this.updateReminder} />
       }}
       />

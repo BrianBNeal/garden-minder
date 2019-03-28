@@ -66,6 +66,7 @@ export default class GardenDetail extends Component {
                     history={this.props.history}
                     plantNotes={this.props.plantNotes}
                     plants={plantsInThisGarden}
+                    updatePlantNote={this.props.updatePlantNote}
                     />
 
                 <GardenPlantForm

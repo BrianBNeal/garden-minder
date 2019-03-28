@@ -33,9 +33,9 @@ export default class PlantNoteForm extends Component {
     render() {
         return (
             <React.Fragment>
-                <ModalHeader toggle={this.props.toggleAddPlantNotes}>Make a note about {this.props.plantName}</ModalHeader>
+                <ModalHeader toggle={this.props.toggleAddPlantNotes}>Make a note about {this.props.plant.name}</ModalHeader>
                 <ModalBody>
-                        <Label>Note about this plant:</Label>
+                        <Label>Note:</Label>
                         <Input onChange={this.handleFieldChange}
                             id="note"
                             type="text"
