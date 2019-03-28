@@ -1,16 +1,23 @@
 import React, { Component } from "react"
-import { Button, Card, CardText, CardBody, CardFooter, CardTitle } from 'reactstrap'
-
+import { Button, Card, CardBody, CardFooter, CardTitle, Modal } from 'reactstrap'
+import PlantDetails from "./PlantDetails"
+import PlantNoteForm from "./PlantNoteForm"
+import PlantNotesList from "./PlantNotesList"
 
 export default class PlantCard extends Component {
 
     state = {
-        showPlantOptions: false
+        showPlantOptions: false,
+        modal: false
     }
 
     remove = (evt, gardenPlant) => {
         evt.stopPropagation()
         this.props.deleteGardenPlant(gardenPlant.id)
+    }
+
+    toggleAddPlantNotes = (evt) => {
+        this.setState({modal: !this.state.modal})
     }
 
     togglePlantOptions = (evt) => {
@@ -20,7 +27,7 @@ export default class PlantCard extends Component {
 
     render() {
         const plant = this.props.plant
-        const thisGardenPlant = this.props.gardenPlants.find(gp => gp.plantId === plant.id && gp.gardenId === this.props.thisGarden.id)
+        const thisGardenPlant = this.props.gardenPlants.find(gp => gp.plantId === plant.id && gp.gardenId === this.props.garden.id)
 
         return (
             <React.Fragment>
@@ -28,26 +35,32 @@ export default class PlantCard extends Component {
                     <CardBody>
                         <CardTitle>
                             {plant.name}
-                            <Button
+                            <Button onClick={this.toggleAddPlantNotes}
                                 color="link">
                                 add note
                             </Button>
+                            <Modal isOpen={this.state.modal} toggle={this.toggleAddPlantNotes} >
+                                <PlantNoteForm
+                                    toggleAddPlantNotes={this.toggleAddPlantNotes}
+                                    addPlantNote={this.props.addPlantNote}
+                                    plant={plant} />
+
+                            </Modal>
                         </CardTitle>
-                        <CardText>
-                            {plant.startIndoors ? "Start indoors" : "Direct sow outdoors"}
-                        </CardText>
-                        <CardText >
-                            {plant.daysUntilHarvest} Days To Maturity
-                        </CardText>
-                        <CardText >
-                            Plant from {plant.plantingDateStart} until {plant.plantingDateEnd}
-                        </CardText>
-                        <CardText >
-                            Planting depth {plant.plantingDepth}
-                        </CardText>
-                        <CardText >
-                            Spacing {plant.spacing}
-                        </CardText>
+
+                        {/* details about plant growth and care */}
+                        <PlantDetails
+                            plant={this.props.plant}
+                        />
+
+                        {/* notes about that plant created by user */}
+                        <PlantNotesList
+                            deletePlantNote={this.props.deletePlantNote}
+                            updatePlantNote={this.props.updatePlantNote}
+                            plant={this.props.plant}
+                            plantNotes={this.props.plantNotes}
+                        />
+
                     </CardBody>
 
                     {/* hidden footer with buttons */}
@@ -59,7 +72,7 @@ export default class PlantCard extends Component {
                                 hide options
                             </Button>
                             <CardFooter>
-                                <Button onClick={(event) => this.remove(event, thisGardenPlant)}
+                                <Button
                                     className="remove-button"
                                     color="primary"
                                     size="sm" >

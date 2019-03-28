@@ -6,12 +6,16 @@ export default class GardenCard extends Component {
 
     render() {
         const garden = this.props.garden
-        //return only this garden's plants
+
+        //this garden's plants
         const plants = this.props.gardenPlants.filter(gp => gp.gardenId === garden.id)
             .map(gp =>
                 this.props.plants.find(
                     p => p.id === gp.plantId
                 ))
+
+        //this garden's reminders
+        const reminders = this.props.reminders.filter(r => r.gardenId === garden.id)
 
         return (
             <React.Fragment>
@@ -25,8 +29,21 @@ export default class GardenCard extends Component {
                                 <span> & Closed on {moment(garden.dateClosed).format("MMMM DD, YYYY")}</span>
                                 : null}
                         </CardSubtitle>
-                        <CardText>{plants.length} plants</CardText>
-                        {plants.map(plant => <CardText key={plant.id}>{plant.name}</CardText>)}
+
+                        {/* List the number of plants in this garden */}
+                        {plants.length === 1
+                            ? <CardText>{plants.length} plant</CardText>
+                            : plants.length > 1
+                            ? <CardText>{plants.length} plants</CardText>
+                            : <CardText>There are no plants in this garden!</CardText>}
+
+                        {/* List the number of reminders in this garden */}
+                        {reminders.length === 1
+                            ? <CardText>{reminders.length} reminder</CardText>
+                            : reminders.length > 1
+                            ? <CardText>{reminders.length} reminders</CardText>
+                            : <CardText>There are no reminders for this garden.</CardText>}
+                        {}
                         <pre className="card-notes">{garden.notes}</pre>
                     </CardBody>
                 </Card>
