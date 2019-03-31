@@ -74,24 +74,18 @@ export default class PlantCard extends Component {
                                     hide options
                             </Button>
                                 <CardFooter>
-                                    <Button
-                                        className="remove-button"
-                                        color="primary"
-                                        size="sm" >
-                                        add a note
-                                </Button>
                                     <Button onClick={() => this.props.history.push(`/plants/edit/${thisGardenPlant.id}`)}
                                         className="remove-button"
                                         color="primary"
                                         size="sm" >
                                         edit plant information
-                                </Button>
+                                    </Button>
                                     <Button onClick={(event) => this.remove(event, thisGardenPlant)}
                                         className="remove-button"
                                         color="danger"
                                         size="sm" >
                                         remove from garden
-                            </Button>
+                                    </Button>
                                 </CardFooter>
                             </React.Fragment>
                             : <Button onClick={this.togglePlantOptions}

@@ -4,6 +4,7 @@ import GardenNotes from "./GardenNotes"
 import PlantList from "../Plant/PlantList"
 import { Button } from "reactstrap"
 import ReminderList from "../Reminder/ReminderList"
+import "./GardenDetail.css"
 
 export default class GardenDetail extends Component {
 
@@ -41,12 +42,12 @@ export default class GardenDetail extends Component {
                     ))
 
             return (
-                <React.Fragment>
+                <div className="garden-detail">
                     <section>
                         <Button onClick={() => this.props.history.goBack()}
                             color="link">
                             Go Back
-                    </Button>
+                        </Button>
                         {/* include (CLOSED) with garden name if garden is closed */
                             (this.props.location.pathname.includes("history"))
                                 ? <h1>{thisGarden.name} (CLOSED)</h1>
@@ -59,7 +60,7 @@ export default class GardenDetail extends Component {
                                     color="link"
                                     size="sm">
                                     edit garden info
-                        </Button>
+                                </Button>
                         }
 
                     </section>
@@ -97,7 +98,7 @@ export default class GardenDetail extends Component {
                     {/* hide form to add plants AND button to close garden if closed */
                         (this.props.location.pathname.includes("history"))
                             ? null
-                            : <React.Fragment>
+                            : <div id="garden-plant-form">
                                 <GardenPlantForm
                                     garden={thisGarden}
                                     gardenPlants={this.props.gardenPlants}
@@ -109,15 +110,15 @@ export default class GardenDetail extends Component {
                                 <Button onClick={() => this.confirmClose(thisGarden)}
                                     color="warning" >
                                     Close Garden
-                        </Button>
-                            </React.Fragment>
+                                </Button>
+                            </div>
                     }
                     <Button onClick={() => this.confirmDelete(thisGarden.id)}
                         color="danger" >
                         Delete Garden
-                </Button>
+                    </Button>
 
-                </React.Fragment>
+                </div>
             )
         }
     }
