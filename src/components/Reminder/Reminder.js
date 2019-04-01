@@ -14,20 +14,18 @@ export default class Reminder extends Component {
 
         return (
             <React.Fragment>
-                <InputGroup>
+                <InputGroup className="reminder-card">
                     <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
+                        <InputGroupText className="reminder-checkbox">
                             <Input onChange={this.completeReminder}
                                 addon
                                 type="checkbox"
                                 aria-label="Checkbox for following reminder text" />
                         </InputGroupText>
                     </InputGroupAddon>
-                    <InputGroupText className="reminderDetails">
-                        <section>
+                    <InputGroupText className="reminder-details">
                             <div className="reminderText">{reminder.text}</div>
                             <div className="reminderDate">{(reminder.date) ? moment(reminder.date).format("MMMM D, YYYY") : "no date set"}</div>
-                        </section>
                     </InputGroupText>
                     <InputGroupAddon addonType="append">
                         <Button onClick={() => this.props.history.push(`/reminders/edit/${reminder.id}`)}

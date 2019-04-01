@@ -66,7 +66,7 @@ export default class ApplicationViews extends Component {
 
   addReminder = (reminderObj) => {
     return DataManager.add("reminders", reminderObj)
-      .then(() => DataManager.getAll("reminders"))
+      .then(() => DataManager.getAllSortedByDate("reminders"))
       .then(reminders => this.setState({ reminders: reminders }))
   }
 
@@ -115,7 +115,7 @@ export default class ApplicationViews extends Component {
 
   updateReminder = (reminderObj) => {
     return DataManager.edit("reminders", reminderObj)
-      .then(() => DataManager.getAll("reminders"))
+      .then(() => DataManager.getAllSortedByDate("reminders"))
       .then(reminders => this.setState({ reminders: reminders }))
   }
 
@@ -133,7 +133,7 @@ export default class ApplicationViews extends Component {
       .then(plants => newState.plants = plants)
       .then(() => DataManager.getAll("plantNotes"))
       .then(plantNotes => newState.plantNotes = plantNotes)
-      .then(() => DataManager.getAll("reminders"))
+      .then(() => DataManager.getAllSortedByDate("reminders"))
       .then(reminders => newState.reminders = reminders)
       .then(() => this.setState(newState))
   }

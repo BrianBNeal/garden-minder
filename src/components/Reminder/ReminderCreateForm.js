@@ -40,14 +40,14 @@ export default class ReminderCreateForm extends Component {
 
                 {/* input for reminder text, along with tag to let user know it's required */}
                 <FormGroup>
-                    <Label for="reminderText">What do you need to be reminded about? <span style={{color: "red", fontWeight: "bolder", fontSize: "1.4em"}}>*</span></Label>
+                    <Label for="reminderText">What do you need to be reminded about? <span style={{color: "red", fontWeight: "bolder"}}>*</span></Label>
                     <Input onChange={this.handleFieldChange}
                         type="text"
                         name="reminderText"
                         id="reminderText"
                         placeholder="remind me to do this!"
                     />
-                    <div style={{color: "red", fontSize: ".9em"}}>*Required</div>
+                    <div style={{color: "red", fontSize: ".7em"}}>*Required</div>
                 </FormGroup>
 
                 {/* Input for reminder date, not required */}

@@ -38,12 +38,12 @@ export default class GardenNotes extends Component {
 
 
         return (
-            <React.Fragment>
+            <section id="garden-notes">
                 <div>Garden Notes:</div>
                 {//if in editNotes mode, show the textarea input, otherwise just show the notes
                     this.state.editNotesMode
                         ? <React.Fragment>
-                            <Form>
+                            <Form id="garden-notes-form">
                                 <FormGroup>
                                     <Label for="gardenNotes">Notes</Label>
                                     <Input onChange={this.handleFieldChange}
@@ -55,7 +55,7 @@ export default class GardenNotes extends Component {
                             </Form>
                             <Button onClick={() => this.updateNotes(this.props.garden)}
                                 color="secondary"
-                                size="sm" >
+                                 >
                                 Done
                                 </Button>
                         </React.Fragment>
@@ -65,13 +65,13 @@ export default class GardenNotes extends Component {
                                 ? null
                                 : <Button onClick={this.toggleEditNotesMode}
                                     color="link"
-                                    size="sm" >
+                                     >
                                     edit notes
                                 </Button>
                             }
                         </React.Fragment>
                 }
-            </React.Fragment>
+            </section>
         )
     }
 }

@@ -1,13 +1,61 @@
-.garden-detail {
+#garden-detail {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 1.5em;
+    margin-top: 500px;
+    padding: 30px;
+    width: 70%;
+    margin: auto;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(255, 255, 255, .5)
+}
+
+section {
+    margin-bottom: 30px;
+}
+
+#garden-detail-title {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.garden-detail .card {
-    width: 70%;
-    margin-top: 35px;
-    cursor: pointer;
-    background-color: rgba(215, 240, 215, 0.5);
-    color: black;
+#garden-detail-title h1 {
+    font-size: 4rem;
+    margin: 0;
+}
+
+#garden-detail-title button {
+    align-self: flex-start;
+}
+
+#garden-notes,
+#garden-reminders {
+    width: 100%;
+}
+
+#garden-notes pre {
+    margin-left: 15px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+#garden-notes-form {
+    width: 100%;
+}
+
+.reminder-checkbox {
+    width: 40px;
+}
+
+.reminder-card {
+    margin: 10px;
+}
+
+.reminder-details {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
 }

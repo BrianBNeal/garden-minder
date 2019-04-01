@@ -1,0 +1,23 @@
+#garden-plant-list .card {
+    width: 80%;
+    margin: 20px 0 20px 0;
+    background-color: rgba(215, 240, 215, 0.6);
+    color: black;
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 40px 280px 40px;
+    grid-template-areas:
+    ".     title  title  title  ."
+    "details    details notes   notes   notes"
+    "buttons    buttons buttons buttons buttons"
+}
+
+.plant-card-title {
+    grid-area: "title";
+    background-color: yellow;
+}
+
+#plant-details {
+    grid-area: "details";
+}

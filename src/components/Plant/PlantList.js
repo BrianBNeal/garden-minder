@@ -1,10 +1,12 @@
 import React, { Component } from "react"
 import PlantCard from "./PlantCard"
+import "./PlantCard.css"
+
 
 export default class PlantList extends Component {
     render() {
         return (
-            <React.Fragment>
+            <section id="garden-plant-list">
                 <div>Plants in this garden:</div>
                 {this.props.plants.map(plant =>
                     <PlantCard key={plant.id}
@@ -20,7 +22,7 @@ export default class PlantList extends Component {
                         updatePlantNote={this.props.updatePlantNote}
                     />
                 )}
-            </React.Fragment>
+            </section>
         )
     }
 }

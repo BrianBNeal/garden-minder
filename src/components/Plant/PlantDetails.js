@@ -9,21 +9,22 @@ export default class PlantDetails extends Component {
 
         return (
             <div id="plant-details" >
-                <CardText>
+            <h6>Plant Care:</h6>
+                <p>
                     {plant.startIndoors ? "Start indoors" : "Direct sow outdoors"}
-                </CardText>
-                <CardText >
+                </p>
+                <p >
                     {plant.daysUntilHarvest} Days To Maturity
-                        </CardText>
-                <CardText >
+                        </p>
+                <p >
                     Plant from {plant.plantingDateStart} until {plant.plantingDateEnd}
-                </CardText>
-                <CardText >
+                </p>
+                <p >
                     Planting depth {plant.plantingDepth}
-                </CardText>
-                <CardText >
+                </p>
+                <p >
                     Spacing {plant.spacing}
-                </CardText>
+                </p>
             </div>
         )
     }

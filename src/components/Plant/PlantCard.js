@@ -31,37 +31,34 @@ export default class PlantCard extends Component {
 
         return (
             <React.Fragment>
-                <Card >
-                    <CardBody>
-                        <CardTitle>
-                            {plant.name}
-                            <Button onClick={this.toggleAddPlantNotes}
-                                color="link">
-                                add note
+                <div className="card" >
+                    <h5 className="plant-card-title">
+                        {plant.name}
+                        <Button onClick={this.toggleAddPlantNotes}
+                            color="link">
+                            add note
                             </Button>
-                            <Modal isOpen={this.state.modal} toggle={this.toggleAddPlantNotes} >
-                                <PlantNoteForm
-                                    toggleAddPlantNotes={this.toggleAddPlantNotes}
-                                    addPlantNote={this.props.addPlantNote}
-                                    plant={plant} />
+                        <Modal isOpen={this.state.modal} toggle={this.toggleAddPlantNotes} >
+                            <PlantNoteForm
+                                toggleAddPlantNotes={this.toggleAddPlantNotes}
+                                addPlantNote={this.props.addPlantNote}
+                                plant={plant} />
 
-                            </Modal>
-                        </CardTitle>
+                        </Modal>
+                    </h5>
 
-                        {/* details about plant growth and care */}
-                        <PlantDetails
-                            plant={this.props.plant}
-                        />
+                    {/* details about plant growth and care */}
+                    <PlantDetails
+                        plant={this.props.plant}
+                    />
 
-                        {/* notes about that plant created by user */}
-                        <PlantNotesList
-                            deletePlantNote={this.props.deletePlantNote}
-                            updatePlantNote={this.props.updatePlantNote}
-                            plant={this.props.plant}
-                            plantNotes={this.props.plantNotes}
-                        />
-
-                    </CardBody>
+                    {/* notes about that plant created by user */}
+                    <PlantNotesList
+                        deletePlantNote={this.props.deletePlantNote}
+                        updatePlantNote={this.props.updatePlantNote}
+                        plant={this.props.plant}
+                        plantNotes={this.props.plantNotes}
+                    />
 
                     {/* hidden footer with buttons */}
                     {(this.props.location.pathname.includes("history"))
@@ -95,7 +92,7 @@ export default class PlantCard extends Component {
                             </Button>
                     }
 
-                </Card>
+                </div>
             </React.Fragment>
         )
     }

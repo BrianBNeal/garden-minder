@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import DataManager from "../../modules/DataManager";
-
+import "./GardenEditForm.css"
 export default class GardenEditForm extends Component {
 
     activeUserId = parseInt(sessionStorage.getItem("credentials"))
@@ -78,6 +78,7 @@ export default class GardenEditForm extends Component {
         return (
             <React.Fragment>
                 <Form>
+                    <h2>Edit Garden Info</h2>
                     <FormGroup>
                         <Label for="gardenName">Garden Name</Label>
                         <Input onChange={this.handleFieldChange}
