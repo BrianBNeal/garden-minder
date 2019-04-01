@@ -63,11 +63,13 @@ export default class GardenNotes extends Component {
                             <pre>{this.props.garden.notes}</pre>
                             {(this.props.location.pathname.includes("history"))
                                 ? null
-                                : <Button onClick={this.toggleEditNotesMode}
+                                : this.props.hasOwnProperty("updateGarden")
+                                ? <Button onClick={this.toggleEditNotesMode}
                                     color="link"
                                      >
                                     edit notes
                                 </Button>
+                                : null
                             }
                         </React.Fragment>
                 }

@@ -17,7 +17,7 @@ export default class ReminderCreateForm extends Component {
     createReminder = (evt) => {
         evt.preventDefault();
 
-        if (this.state.reminderText) {
+        if (this.state.reminderText && this.state.reminderDate) {
 
             const newReminderObj = {
                 "completed": false,
@@ -30,7 +30,7 @@ export default class ReminderCreateForm extends Component {
                 .then(() => this.props.history.push(`/gardens/${this.props.match.params.gardenId}`))
 
         } else {
-            window.alert("Please provide some text for the reminder")
+            window.alert("Please fill in both fields")
         }
     }
 
@@ -38,19 +38,18 @@ export default class ReminderCreateForm extends Component {
         return (
             <Form>
 
-                {/* input for reminder text, along with tag to let user know it's required */}
+                {/* input for reminder text */}
                 <FormGroup>
-                    <Label for="reminderText">What do you need to be reminded about? <span style={{color: "red", fontWeight: "bolder"}}>*</span></Label>
+                    <Label for="reminderText">What do you need to be reminded about?</Label>
                     <Input onChange={this.handleFieldChange}
                         type="text"
                         name="reminderText"
                         id="reminderText"
                         placeholder="remind me to do this!"
                     />
-                    <div style={{color: "red", fontSize: ".7em"}}>*Required</div>
                 </FormGroup>
 
-                {/* Input for reminder date, not required */}
+                {/* Input for reminder date */}
                 <FormGroup>
                     <Label for="reminderDate">Date</Label>
                     <Input onChange={this.handleFieldChange}

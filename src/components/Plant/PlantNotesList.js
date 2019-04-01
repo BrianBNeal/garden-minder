@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { CardText } from "reactstrap"
+import { CardText, Button } from "reactstrap"
 import PlatNoteCard from "./PlantNoteCard"
 
 export default class PlantNotesList extends Component {
@@ -10,6 +10,10 @@ export default class PlantNotesList extends Component {
         )
         return (
             <div id="plant-notes">
+                <Button onClick={this.props.toggleAddPlantNotes}
+                                color="link">
+                                add note
+                </Button>
                 <CardText>Notes:</CardText>
                 {!plantNotesByThisUser.length
                     ? <CardText>You have no notes about this plant yet.</CardText>

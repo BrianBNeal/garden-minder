@@ -94,7 +94,6 @@ export default class GardenCreateForm extends Component {
                             <Label for="gardenLocation">
                                 Location
                                 <Button onClick={this.toggleLocationMode}
-                                    size="sm"
                                     color="link">
                                     Create a new location
                                 </Button>

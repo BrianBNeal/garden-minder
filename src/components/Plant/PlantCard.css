@@ -1,23 +1,34 @@
 #garden-plant-list .card {
     width: 80%;
-    margin: 20px 0 20px 0;
+    margin: 25px auto 25px auto;
+    padding: 15px;
     background-color: rgba(215, 240, 215, 0.6);
+    border-color: #667836;
     color: black;
-    display: grid;
-    grid-gap: 5px;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: 40px 280px 40px;
-    grid-template-areas:
-    ".     title  title  title  ."
-    "details    details notes   notes   notes"
-    "buttons    buttons buttons buttons buttons"
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
 }
 
-.plant-card-title {
-    grid-area: "title";
-    background-color: yellow;
+.plant-card-top {
+    align-self: center;
 }
 
-#plant-details {
-    grid-area: "details";
+.plant-card-top h5 {
+    font-size: 1.1em;
+}
+
+h5 span {
+    margin-left: 15px;
+    color: darkgray;
+}
+
+h5 span button {
+    margin: -10px;
+}
+
+.plant-card-content {
+    display: flex;
+    font-size: .8em;
 }

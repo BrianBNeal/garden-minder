@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Button, Card, CardBody, CardFooter, CardTitle, Modal } from 'reactstrap'
+import { Button, Modal } from 'reactstrap'
 import PlantDetails from "./PlantDetails"
 import PlantNoteForm from "./PlantNoteForm"
 import PlantNotesList from "./PlantNotesList"
@@ -32,66 +32,47 @@ export default class PlantCard extends Component {
         return (
             <React.Fragment>
                 <div className="card" >
-                    <h5 className="plant-card-title">
-                        {plant.name}
-                        <Button onClick={this.toggleAddPlantNotes}
-                            color="link">
-                            add note
+                    <div className="plant-card-top">
+                        <h5 className="plant-card-title">
+                            {plant.name}
+                            <span>
+                            <Button onClick={() => this.props.history.push(`/plants/edit/${thisGardenPlant.id}`)}
+                                className="remove-button"
+                                color="link" >
+                                edit
                             </Button>
-                        <Modal isOpen={this.state.modal} toggle={this.toggleAddPlantNotes} >
-                            <PlantNoteForm
-                                toggleAddPlantNotes={this.toggleAddPlantNotes}
-                                addPlantNote={this.props.addPlantNote}
-                                plant={plant} />
-
-                        </Modal>
-                    </h5>
-
-                    {/* details about plant growth and care */}
-                    <PlantDetails
-                        plant={this.props.plant}
-                    />
-
-                    {/* notes about that plant created by user */}
-                    <PlantNotesList
-                        deletePlantNote={this.props.deletePlantNote}
-                        updatePlantNote={this.props.updatePlantNote}
-                        plant={this.props.plant}
-                        plantNotes={this.props.plantNotes}
-                    />
-
-                    {/* hidden footer with buttons */}
-                    {(this.props.location.pathname.includes("history"))
-                        ? null
-                        : (this.state.showPlantOptions)
-                            ? <React.Fragment>
-                                <Button onClick={this.togglePlantOptions}
-                                    color="link"
-                                    size="sm" >
-                                    hide options
+                            |
+                            <Button onClick={(event) => this.remove(event, thisGardenPlant)}
+                                className="remove-button"
+                                color="link" >
+                                remove
                             </Button>
-                                <CardFooter>
-                                    <Button onClick={() => this.props.history.push(`/plants/edit/${thisGardenPlant.id}`)}
-                                        className="remove-button"
-                                        color="primary"
-                                        size="sm" >
-                                        edit plant information
-                                    </Button>
-                                    <Button onClick={(event) => this.remove(event, thisGardenPlant)}
-                                        className="remove-button"
-                                        color="danger"
-                                        size="sm" >
-                                        remove from garden
-                                    </Button>
-                                </CardFooter>
-                            </React.Fragment>
-                            : <Button onClick={this.togglePlantOptions}
-                                color="link"
-                                size="sm" >
-                                show options
-                            </Button>
-                    }
+                            </span>
+                            <Modal isOpen={this.state.modal} toggle={this.toggleAddPlantNotes} >
+                                <PlantNoteForm
+                                    toggleAddPlantNotes={this.toggleAddPlantNotes}
+                                    addPlantNote={this.props.addPlantNote}
+                                    plant={plant} />
 
+                            </Modal>
+                        </h5>
+                    </div>
+
+                    <div className="plant-card-content">
+                        {/* details about plant growth and care */}
+                        <PlantDetails
+                            plant={this.props.plant}
+                        />
+
+                        {/* notes about that plant created by user */}
+                        <PlantNotesList
+                            deletePlantNote={this.props.deletePlantNote}
+                            plant={this.props.plant}
+                            plantNotes={this.props.plantNotes}
+                            toggleAddPlantNotes={this.toggleAddPlantNotes}
+                            updatePlantNote={this.props.updatePlantNote}
+                        />
+                    </div>
                 </div>
             </React.Fragment>
         )

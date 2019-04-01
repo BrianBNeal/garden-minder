@@ -49,7 +49,7 @@ export default Object.create(null, {
     },
     getAllSortedByDate: {
         value: function (database) {
-            return fetch(`${Settings.remoteURL}/${database}?completed=false&_sort=date&_order=desc`).then(res => res.json())
+            return fetch(`${Settings.remoteURL}/${database}?completed=false&_sort=date&_order=asc`).then(res => res.json())
         }
     },
     searchUsername: {

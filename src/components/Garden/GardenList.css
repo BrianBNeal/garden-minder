@@ -1,15 +1,26 @@
 .garden-list {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     display: flex;
-    align-items: center;
     flex-direction: column;
+    align-items: center;
 }
 
 .garden-list .card {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.5em;
+    word-wrap: break-word;
     width: 60%;
     margin-top: 35px;
     cursor: pointer;
     background-color: rgba(215, 240, 215, .5);
     color: black;
+    padding: 20px;
+}
+
+.garden-card-title {
+    margin: auto;
+    width: auto;
 }
 
 .garden-list .card:hover {
