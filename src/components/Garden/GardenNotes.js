@@ -50,7 +50,8 @@ export default class GardenNotes extends Component {
                                         type="textarea"
                                         name="gardenNotes"
                                         id="gardenNotes"
-                                        value={this.state.gardenNotes} />
+                                        value={this.state.gardenNotes}
+                                    />
                                 </FormGroup>
                             </Form>
                             <Button onClick={() => this.updateNotes(this.props.garden)}
@@ -67,7 +68,7 @@ export default class GardenNotes extends Component {
                                 ? <Button onClick={this.toggleEditNotesMode}
                                     color="link"
                                      >
-                                    edit notes
+                                    add/change notes
                                 </Button>
                                 : null
                             }

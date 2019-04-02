@@ -27,10 +27,6 @@ section {
     margin: 0;
 }
 
-#garden-detail-title button {
-    align-self: flex-start;
-}
-
 #garden-notes,
 #garden-reminders {
     width: 100%;
@@ -71,6 +67,6 @@ section {
 
 #garden-buttons {
     display: flex;
-    width: 60%;
+    width: 90%;
     justify-content: space-between;
 }

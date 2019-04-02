@@ -4,37 +4,41 @@ import PlantNoteEdit from "./PlantNoteEdit"
 
 export default class PlantNoteCard extends Component {
 
-state = {
-    modal: false
-}
+    state = {
+        modal: false
+    }
 
-toggleEditPlantNote = (evt) => {
-    this.setState({modal: !this.state.modal})
-}
+    toggleEditPlantNote = (evt) => {
+        this.setState({ modal: !this.state.modal })
+    }
 
     render() {
         return (
             this.props.plantNotes.map(note =>
                 <React.Fragment key={note.id}>
-                    <CardText className="card-text">{note.note}</CardText>
-                    <Button onClick={this.toggleEditPlantNote}
-                        color="link">
-                        edit
-                    </Button>
-                    |
-                    <Button onClick={() => this.props.deletePlantNote(note.id)}
-                        color="link">
-                        delete
-                    </Button>
+                    <div className="note-card-text">
+                        {note.note}
+                        <span>
+                            <Button onClick={this.toggleEditPlantNote}
+                                color="link">
+                                edit
+                            </Button>
+                            |
+                            <Button onClick={() => this.props.deletePlantNote(note.id)}
+                                color="link">
+                                delete
+                            </Button>
+                        </span>
+                    </div>
 
                     <Modal isOpen={this.state.modal} toggle={this.toggleEditPlantNote} >
-                                <PlantNoteEdit
-                                note={note}
-                                    toggleEditPlantNote={this.toggleEditPlantNote}
-                                    updatePlantNote={this.props.updatePlantNote}
-                                    plant={this.props.plant} />
+                        <PlantNoteEdit
+                            note={note}
+                            toggleEditPlantNote={this.toggleEditPlantNote}
+                            updatePlantNote={this.props.updatePlantNote}
+                            plant={this.props.plant} />
 
-                            </Modal>
+                    </Modal>
 
                 </React.Fragment>
             )

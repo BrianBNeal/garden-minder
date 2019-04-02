@@ -50,7 +50,7 @@ export default class GardenCard extends Component {
                                         : <CardText>There are no reminders for this garden.</CardText>
                                 }
                             </section>
-                            {}
+
                             <GardenNotes
                             location={this.props.location}
                             garden={garden} />
@@ -61,34 +61,38 @@ export default class GardenCard extends Component {
                 }
                 {(this.props.location.pathname === "/gardens/history")
                     ? <Card onClick={() => this.props.history.push(`/gardens/history/${garden.id}`)}>
-                        <CardBody>
-                            <CardTitle>{garden.name}</CardTitle>
-                            <CardSubtitle>
+                        <div className="garden-card-body">
+                        <div className="garden-card-title">{garden.name}</div>
+                            <div className="garden-card-created">
                                 Created on {moment(garden.dateCreated).format("MMMM DD, YYYY")}
                                 {/*if the garden is closed, also show the closed date */}
                                 {(garden.dateClosed !== "") ?
                                     <span> & Closed on {moment(garden.dateClosed).format("MMMM DD, YYYY")}</span>
                                     : null}
-                            </CardSubtitle>
+                            </div>
 
                             {/* List the number of plants in this garden */}
+                            <section className="garden-card-plants">
                             {plants.length === 1
                                 ? <CardText>{plants.length} plant</CardText>
                                 : plants.length > 1
                                     ? <CardText>{plants.length} plants</CardText>
                                     : <CardText>There are no plants in this garden!</CardText>}
+                            </section>
 
                             {/* List the number of reminders in this garden */}
+                            <section className="garden-card-reminders">
                             {reminders.length === 1
                                 ? <CardText>{reminders.length} reminder</CardText>
                                 : reminders.length > 1
                                     ? <CardText>{reminders.length} reminders</CardText>
                                     : <CardText>There are no reminders for this garden.</CardText>}
-                            {}
+                            </section>
 
-                            <GardenNotes />
-                            <p>WHAT</p>
-                        </CardBody>
+                            <GardenNotes
+                            location={this.props.location}
+                            garden={garden} />
+                        </div>
                     </Card>
                     : null
                 }

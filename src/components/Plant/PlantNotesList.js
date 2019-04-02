@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { CardText, Button } from "reactstrap"
-import PlatNoteCard from "./PlantNoteCard"
+import PlantNoteCard from "./PlantNoteCard"
 
 export default class PlantNotesList extends Component {
     render() {
@@ -9,20 +9,22 @@ export default class PlantNotesList extends Component {
             (pn.plantId === this.props.plant.id) && (pn.userId === activeUserId)
         )
         return (
-            <div id="plant-notes">
-                <Button onClick={this.props.toggleAddPlantNotes}
-                                color="link">
-                                add note
-                </Button>
-                <CardText>Notes:</CardText>
+            <div className="plant-notes">
+                <CardText>
+                    Notes:
+                    <Button onClick={this.props.toggleAddPlantNotes}
+                        color="link">
+                        add note
+                    </Button>
+                </CardText>
                 {!plantNotesByThisUser.length
                     ? <CardText>You have no notes about this plant yet.</CardText>
-                    : <PlatNoteCard
+                    : <PlantNoteCard
                         plantNotes={plantNotesByThisUser}
                         plant={this.props.plant}
                         updatePlantNote={this.props.updatePlantNote}
                         deletePlantNote={this.props.deletePlantNote}
-                        />
+                    />
                 }
             </div>
         )

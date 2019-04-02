@@ -15,12 +15,19 @@
     cursor: pointer;
     background-color: rgba(215, 240, 215, .5);
     color: black;
-    padding: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .garden-card-title {
-    margin: auto;
-    width: auto;
+    text-align: center;
+    font-size: 2em;
+    margin-top: 10px;
+}
+
+.garden-card-created {
+    text-align: center;
+    margin-top: -5px;
 }
 
 .garden-list .card:hover {

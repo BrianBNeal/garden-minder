@@ -1,11 +1,11 @@
 #garden-plant-list .card {
-    width: 80%;
+    width: 800px;
     margin: 25px auto 25px auto;
     padding: 15px;
     background-color: rgba(215, 240, 215, 0.6);
     border-color: #667836;
     color: black;
-    height: 400px;
+    height: 325px;
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -19,16 +19,45 @@
     font-size: 1.1em;
 }
 
-h5 span {
+h5 span,
+.note-card-text span {
     margin-left: 15px;
     color: darkgray;
 }
 
-h5 span button {
+h5 span button,
+.note-card-text button {
     margin: -10px;
 }
 
 .plant-card-content {
     display: flex;
     font-size: .8em;
+    padding: 15px;
+}
+
+.plant-details {
+    flex-basis: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 225px;
+}
+
+.plant-details p {
+    margin: 0;
+}
+
+.plant-notes div {
+    margin-bottom: 15px;
+}
+
+.plant-notes p {
+    margin: 0;
+}
+
+.plant-notes {
+    flex-basis: 60%;
+    height: 225px;
+    overflow-y: auto;
 }

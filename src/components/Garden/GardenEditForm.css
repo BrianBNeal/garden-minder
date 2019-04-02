@@ -11,3 +11,7 @@ form {
 h2 {
     font-size: 4em;
 }
+
+form button {
+    margin: 5px;
+}
