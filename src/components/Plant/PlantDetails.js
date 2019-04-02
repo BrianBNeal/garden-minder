@@ -8,22 +8,26 @@ export default class PlantDetails extends Component {
         const plant = this.props.plant
 
         return (
-            <div id="plant-details" >
-                <CardText>
+            <div className="plant-details" >
+                <p className="plant-care-item">
                     {plant.startIndoors ? "Start indoors" : "Direct sow outdoors"}
-                </CardText>
-                <CardText >
+                </p>
+                <p className="plant-care-item">
                     {plant.daysUntilHarvest} Days To Maturity
-                        </CardText>
-                <CardText >
-                    Plant from {plant.plantingDateStart} until {plant.plantingDateEnd}
-                </CardText>
-                <CardText >
+                        </p>
+                <p className="plant-care-item">
+                    Plant from:<br/>
+                    {plant.plantingDateStart} until {plant.plantingDateEnd}
+                </p>
+                <p className="plant-care-item">
                     Planting depth {plant.plantingDepth}
-                </CardText>
-                <CardText >
+                </p>
+                <p className="plant-care-item">
                     Spacing {plant.spacing}
-                </CardText>
+                </p>
+                <p className="plant-care-item">
+                    Sun Exposure: {plant.sunExposure}
+                </p>
             </div>
         )
     }

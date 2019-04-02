@@ -18,6 +18,7 @@ export default class GardenList extends Component {
                             {/* filter to get only gardens with no dateClosed */}
                             {gardens.filter(garden => !garden.dateClosed).map(garden => {
                                 return <GardenCard key={garden.id}
+                                    location={this.props.location}
                                     history={this.props.history}
                                     garden={garden}
                                     gardenPlants={this.props.gardenPlants}
@@ -35,6 +36,7 @@ export default class GardenList extends Component {
                             {/* filter to get only gardens WITH dateClosed */}
                             {gardens.filter(garden => garden.dateClosed).map(garden => {
                                 return <GardenCard key={garden.id}
+                                    location={this.props.location}
                                     history={this.props.history}
                                     garden={garden}
                                     gardenPlants={this.props.gardenPlants}

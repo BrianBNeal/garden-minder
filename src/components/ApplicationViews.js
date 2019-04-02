@@ -61,12 +61,12 @@ export default class ApplicationViews extends Component {
   addPlantNote = (plantNoteObj) => {
     return DataManager.add("plantNotes", plantNoteObj)
       .then(() => DataManager.getAll("plantNotes"))
-      .then(plantNotes => this.setState({plantNotes: plantNotes}))
+      .then(plantNotes => this.setState({ plantNotes: plantNotes }))
   }
 
   addReminder = (reminderObj) => {
     return DataManager.add("reminders", reminderObj)
-      .then(() => DataManager.getAll("reminders"))
+      .then(() => DataManager.getAllSortedByDate("reminders"))
       .then(reminders => this.setState({ reminders: reminders }))
   }
 
@@ -92,7 +92,7 @@ export default class ApplicationViews extends Component {
   deletePlantNote = (id) => {
     return DataManager.delete("plantNotes", id)
       .then(() => DataManager.getAll("plantNotes"))
-      .then(plantNotes => this.setState({plantNotes: plantNotes}))
+      .then(plantNotes => this.setState({ plantNotes: plantNotes }))
   }
 
   updateGarden = (gardenObj) => {
@@ -110,12 +110,12 @@ export default class ApplicationViews extends Component {
   updatePlantNote = (plantNoteObj) => {
     return DataManager.edit("plantNotes", plantNoteObj)
       .then(() => DataManager.getAll("plantNotes"))
-      .then(plantNotes => this.setState({plantNotes: plantNotes}))
+      .then(plantNotes => this.setState({ plantNotes: plantNotes }))
   }
 
   updateReminder = (reminderObj) => {
     return DataManager.edit("reminders", reminderObj)
-      .then(() => DataManager.getAll("reminders"))
+      .then(() => DataManager.getAllSortedByDate("reminders"))
       .then(reminders => this.setState({ reminders: reminders }))
   }
 
@@ -133,7 +133,7 @@ export default class ApplicationViews extends Component {
       .then(plants => newState.plants = plants)
       .then(() => DataManager.getAll("plantNotes"))
       .then(plantNotes => newState.plantNotes = plantNotes)
-      .then(() => DataManager.getAll("reminders"))
+      .then(() => DataManager.getAllSortedByDate("reminders"))
       .then(reminders => newState.reminders = reminders)
       .then(() => this.setState(newState))
   }
@@ -153,7 +153,7 @@ export default class ApplicationViews extends Component {
       />
 
       {/* List of closed gardens */}
-      <Route path="/gardens/history" render={props => {
+      <Route exact path="/gardens/history" render={props => {
         return <GardenList {...props}
           gardens={this.state.gardens}
           gardenPlants={this.state.gardenPlants}
@@ -162,7 +162,7 @@ export default class ApplicationViews extends Component {
       }}
       />
 
-      {/* View a single garden */}
+      {/* View a single OPEN garden */}
       <Route path="/gardens/:gardenId(\d+)/" render={props => {
         return <GardenDetail {...props}
           addGardenPlant={this.addGardenPlant}
@@ -180,6 +180,23 @@ export default class ApplicationViews extends Component {
           updateGarden={this.updateGarden}
           updatePlantNote={this.updatePlantNote}
           updateReminder={this.updateReminder} />
+      }}
+      />
+
+      {/* View a single CLOSED garden */}
+      <Route path="/gardens/history/:gardenId(\d+)/" render={props => {
+        return <GardenDetail {...props}
+          addPlantNote={this.addPlantNote}
+          deleteGarden={this.deleteGarden}
+          deletePlantNote={this.deletePlantNote}
+          gardens={this.state.gardens}
+          gardenPlants={this.state.gardenPlants}
+          locations={this.state.locations}
+          plantNotes={this.state.plantNotes}
+          plants={this.state.plants}
+          reminders={this.state.reminders}
+          updatePlantNote={this.updatePlantNote}
+        />
       }}
       />
 

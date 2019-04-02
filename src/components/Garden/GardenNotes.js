@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import {Form, FormGroup, Label, Input, Button} from "reactstrap"
+import { Form, FormGroup, Label, Input, Button } from "reactstrap"
 import DataManager from "../../modules/DataManager"
 
 export default class GardenNotes extends Component {
@@ -38,37 +38,43 @@ export default class GardenNotes extends Component {
 
 
         return (
-            <React.Fragment>
+            <section id="garden-notes">
                 <div>Garden Notes:</div>
                 {//if in editNotes mode, show the textarea input, otherwise just show the notes
                     this.state.editNotesMode
                         ? <React.Fragment>
-                            <Form>
+                            <Form id="garden-notes-form">
                                 <FormGroup>
                                     <Label for="gardenNotes">Notes</Label>
                                     <Input onChange={this.handleFieldChange}
                                         type="textarea"
                                         name="gardenNotes"
                                         id="gardenNotes"
-                                        value={this.state.gardenNotes} />
+                                        value={this.state.gardenNotes}
+                                    />
                                 </FormGroup>
                             </Form>
                             <Button onClick={() => this.updateNotes(this.props.garden)}
                                 color="secondary"
-                                size="sm" >
+                                 >
                                 Done
                                 </Button>
                         </React.Fragment>
                         : <React.Fragment>
                             <pre>{this.props.garden.notes}</pre>
-                            <Button onClick={this.toggleEditNotesMode}
-                                color="link"
-                                size="sm" >
-                                edit notes
+                            {(this.props.location.pathname.includes("history"))
+                                ? null
+                                : this.props.hasOwnProperty("updateGarden")
+                                ? <Button onClick={this.toggleEditNotesMode}
+                                    color="link"
+                                     >
+                                    add/change notes
                                 </Button>
+                                : null
+                            }
                         </React.Fragment>
                 }
-            </React.Fragment>
+            </section>
         )
     }
 }

@@ -5,7 +5,7 @@ export default class PlantCreateForm extends Component {
 
     state = {
         plantName: "",
-        startIndoors: false,
+        startIndoors: "",
         measureUnit: "",
         daysUntilHarvest: "",
         plantingDepth: "",
@@ -25,8 +25,8 @@ export default class PlantCreateForm extends Component {
         evt.preventDefault();
 
         //if statement to make sure required fields are filled out
-        if (!this.state.plantName) {
-            window.alert("Please provide a plant name")
+        if (!this.state.plantName || !this.state.startIndoors || !this.state.measureUnit || !this.state.daysUntilHarvest || !this.state.plantingDepth || !this.state.spacing || !this.state.sunExposure || !this.state.plantingDateEnd || !this.state.plantingDateStart) {
+            window.alert("Please fill in all fields")
         } else {
 
             const newPlantObj = {
@@ -55,14 +55,24 @@ export default class PlantCreateForm extends Component {
                     <Row form>
                         <Col md={5}>
                             <FormGroup>
-                                <Label for="plantName">Plant Name<span style={{ color: "red", fontWeight: "bolder" }}>*</span></Label>
-                                <Input onChange={this.handleFieldChange} type="text" name="plantName" id="plantName" placeholder="San Marzano Tomatoes" />
+                                <Label for="plantName">Plant Name</Label>
+                                <Input onChange={this.handleFieldChange}
+                                    type="text"
+                                    name="plantName"
+                                    id="plantName"
+                                    placeholder="e.g. Tomatoes, San Marzano"
+                                />
                             </FormGroup>
                         </Col>
                         <Col md={3}>
                             <FormGroup>
                                 <Label for="startIndoors">Start Indoors</Label>
-                                <Input onChange={this.handleFieldChange} type="select" name="startIndoors" id="startIndoors" >
+                                <Input onChange={this.handleFieldChange}
+                                    type="select"
+                                    name="startIndoors"
+                                    id="startIndoors"
+                                >
+                                    <option value="">-Choose one-</option>
                                     <option value={false}>No</option>
                                     <option value={true}>Yes</option>
                                 </Input>
@@ -71,7 +81,12 @@ export default class PlantCreateForm extends Component {
                         <Col md={4}>
                             <FormGroup>
                                 <Label for="measureUnit">Measure Unit</Label>
-                                <Input onChange={this.handleFieldChange} type="text" name="measureUnit" id="measureUnit" placeholder='e.g. "pounds" or "pieces" ' />
+                                <Input onChange={this.handleFieldChange}
+                                    type="text"
+                                    name="measureUnit"
+                                    id="measureUnit"
+                                    placeholder='e.g. "pounds" or "pieces"'
+                                />
                             </FormGroup>
                         </Col>
                     </Row>
@@ -79,7 +94,12 @@ export default class PlantCreateForm extends Component {
                         <Col md={4}>
                             <FormGroup>
                                 <Label for="sunExposure">Sun Exposure</Label>
-                                <Input onChange={this.handleFieldChange} type="select" name="sunExposure" id="sunExposure" placeholder="45">
+                                <Input onChange={this.handleFieldChange}
+                                    type="select"
+                                    name="sunExposure"
+                                    id="sunExposure"
+                                >
+                                    <option value="">-Choose one-</option>
                                     <option value="Full Sun">Full Sun</option>
                                     <option value="Partial Sun">Partial Sun</option>
                                     <option value="Partial Shade">Partial Shade</option>
@@ -90,13 +110,23 @@ export default class PlantCreateForm extends Component {
                         <Col md={4}>
                             <FormGroup>
                                 <Label for="plantingDepth">Planting depth</Label>
-                                <Input onChange={this.handleFieldChange} type="text" name="plantingDepth" id="plantingDepth" placeholder='1"' />
+                                <Input onChange={this.handleFieldChange}
+                                    type="text"
+                                    name="plantingDepth"
+                                    id="plantingDepth"
+                                    placeholder='e.g. 1"'
+                                />
                             </FormGroup>
                         </Col>
                         <Col md={4}>
                             <FormGroup>
                                 <Label for="spacing">Spacing</Label>
-                                <Input onChange={this.handleFieldChange} type="text" name="spacing" id="spacing" placeholder="2'" />
+                                <Input onChange={this.handleFieldChange}
+                                    type="text"
+                                    name="spacing"
+                                    id="spacing"
+                                    placeholder="e.g. 2'"
+                                />
                             </FormGroup>
                         </Col>
                     </Row>
@@ -104,7 +134,12 @@ export default class PlantCreateForm extends Component {
                         <Col md={4}>
                             <FormGroup>
                                 <Label for="plantingDateStart">Start of Planting Season</Label>
-                                <Input onChange={this.handleFieldChange} type="select" name="plantingDateStart" id="plantingDateStart" placeholder="45" >
+                                <Input onChange={this.handleFieldChange}
+                                    type="select"
+                                    name="plantingDateStart"
+                                    id="plantingDateStart"
+                                    placeholder="45"
+                                >
                                     <option value="">-Select a month-</option>
                                     <option value="January">January</option>
                                     <option value="February">February</option>
@@ -124,7 +159,11 @@ export default class PlantCreateForm extends Component {
                         <Col md={4}>
                             <FormGroup>
                                 <Label for="plantingDateEnd">End of Planting Season</Label>
-                                <Input onChange={this.handleFieldChange} type="select" name="plantingDateEnd" id="plantingDateEnd" placeholder="45" >
+                                <Input onChange={this.handleFieldChange}
+                                    type="select"
+                                    name="plantingDateEnd"
+                                    id="plantingDateEnd"
+                                >
                                     <option value="">-Select a month-</option>
                                     <option value="January">January</option>
                                     <option value="February">February</option>
@@ -144,7 +183,11 @@ export default class PlantCreateForm extends Component {
                         <Col md={4}>
                             <FormGroup>
                                 <Label for="daysUntilHarvest">Days Until Harvest (estimated)</Label>
-                                <Input onChange={this.handleFieldChange} type="text" name="daysUntilHarvest" id="daysUntilHarvest" placeholder="45" />
+                                <Input onChange={this.handleFieldChange}
+                                type="text"
+                                name="daysUntilHarvest"
+                                id="daysUntilHarvest"
+                                placeholder="e.g. 45" />
                             </FormGroup>
                         </Col>
                     </Row>

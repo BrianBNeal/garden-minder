@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import DataManager from "../../modules/DataManager";
-
+import "./GardenEditForm.css"
 export default class GardenEditForm extends Component {
 
     activeUserId = parseInt(sessionStorage.getItem("credentials"))
@@ -78,6 +78,7 @@ export default class GardenEditForm extends Component {
         return (
             <React.Fragment>
                 <Form>
+                    <h2>Edit Garden Info</h2>
                     <FormGroup>
                         <Label for="gardenName">Garden Name</Label>
                         <Input onChange={this.handleFieldChange}
@@ -139,14 +140,31 @@ export default class GardenEditForm extends Component {
                             id="gardenNotes"
                             value={this.state.gardenNotes} />
                     </FormGroup>
-                    <Button onClick={this.updateExistingGarden}
-                        color="primary" >
-                        Update
-                    </Button>
-                    <Button onClick={() => this.props.history.push(`/gardens/${this.props.match.params.gardenId}`)}
-                        color="secondary" >
-                        Cancel
-                    </Button>
+                    {/* condition to disable submit buttons for garden when creating a new location */}
+                    {this.state.createLocationMode === false
+                        ? <React.Fragment>
+                            <Button onClick={this.updateExistingGarden}
+                                color="primary" >
+                                Update
+                        </Button>
+                            <Button onClick={() => this.props.history.push(`/gardens/${this.props.match.params.gardenId}`)}
+                                color="secondary" >
+                                Cancel
+                        </Button>
+                        </React.Fragment>
+                        : <React.Fragment>
+                            <Button onClick={this.createNewGarden}
+                                color="primary"
+                                disabled >
+                                Update
+                        </Button>
+                            <Button onClick={() => this.props.history.push(`/gardens/${this.props.match.params.gardenId}`)}
+                                color="secondary"
+                                disabled >
+                                Cancel
+                        </Button>
+                        </React.Fragment>
+                    }
                 </Form>
 
             </React.Fragment>

@@ -7,14 +7,14 @@ export default class ReminderList extends Component {
 
     render() {
         return (
-            <section className="gardenReminders">
+            <section id="garden-reminders">
                 <div>
                     Reminders (check to mark completed)
-        <Button onClick={() => this.props.history.push(`/reminders/new/${this.props.garden.id}`)}
+                    <Button onClick={() => this.props.history.push(`/reminders/new/${this.props.garden.id}`)}
                         color="link"
-                        size="sm">
+                        >
                         add reminder
-        </Button>
+                    </Button>
                 </div>
                 {this.props.reminders.filter(reminder => reminder.gardenId === this.props.garden.id).map(reminder =>
                     (reminder.completed === false)
