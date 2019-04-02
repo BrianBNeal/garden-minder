@@ -54,7 +54,7 @@ export default class ApplicationViews extends Component {
 
   addPlant = (plantObj) => {
     return DataManager.add("plants", plantObj)
-      .then(() => DataManager.getAll("plants"))
+      .then(() => DataManager.getAllSortedByName("plants"))
       .then(plants => this.setState({ plants: plants }))
   }
 
@@ -103,7 +103,7 @@ export default class ApplicationViews extends Component {
 
   updatePlant = (plantObj) => {
     return DataManager.edit("plants", plantObj)
-      .then(() => DataManager.getAll("plants"))
+      .then(() => DataManager.getAllSortedByName("plants"))
       .then(plants => this.setState({ plants: plants }))
   }
 
@@ -129,7 +129,7 @@ export default class ApplicationViews extends Component {
       .then(locations => newState.locations = locations)
       .then(() => DataManager.getAll("gardenPlants"))
       .then(gardenPlants => newState.gardenPlants = gardenPlants)
-      .then(() => DataManager.getAll("plants"))
+      .then(() => DataManager.getAllSortedByName("plants"))
       .then(plants => newState.plants = plants)
       .then(() => DataManager.getAll("plantNotes"))
       .then(plantNotes => newState.plantNotes = plantNotes)

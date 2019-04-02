@@ -52,6 +52,11 @@ export default Object.create(null, {
             return fetch(`${Settings.remoteURL}/${database}?completed=false&_sort=date&_order=asc`).then(res => res.json())
         }
     },
+    getAllSortedByName: {
+        value: function (database) {
+            return fetch(`${Settings.remoteURL}/${database}?_sort=name&_order=asc`).then(res => res.json())
+        }
+    },
     searchUsername: {
         value: function (username) {
             return fetch(`${Settings.remoteURL}/users?username=${username}`).then(e =>

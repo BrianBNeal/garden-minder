@@ -5,7 +5,7 @@
     background-color: rgba(215, 240, 215, 0.6);
     border-color: #667836;
     color: black;
-    height: 325px;
+    height: 360px;
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -20,7 +20,8 @@
 }
 
 h5 span,
-.note-card-text span {
+.note-card-text div {
+    display: inline-block;
     margin-left: 15px;
     color: darkgray;
 }
@@ -41,7 +42,7 @@ h5 span button,
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 225px;
+    height: 260px;
 }
 
 .plant-details p {
@@ -58,6 +59,6 @@ h5 span button,
 
 .plant-notes {
     flex-basis: 60%;
-    height: 225px;
+    height: 260px;
     overflow-y: auto;
 }

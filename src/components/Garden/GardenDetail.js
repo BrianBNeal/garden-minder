@@ -21,13 +21,11 @@ export default class GardenDetail extends Component {
         const doubleCheck = window.confirm("Are you sure? This will permanently delete this garden and all of its information.")
         if (doubleCheck === true) {
             this.props.deleteGarden(gardenId)
-                .then(() => {
                     if (this.props.location.pathname.includes("history")) {
                         this.props.history.push("/gardens/history")
                     } else {
                         this.props.history.push("/")
                     }
-                })
         }
     }
 
@@ -35,6 +33,8 @@ export default class GardenDetail extends Component {
 
         const thisGarden = this.props.gardens.find(
             garden => (garden.id === parseInt(this.props.match.params.gardenId))) || {}
+
+        const thisLocation = this.props.locations.find(location => location.id === thisGarden.locationId)
 
         const plantsInThisGarden = this.props.gardenPlants.filter(gp => gp.gardenId === thisGarden.id)
             .map(gp =>
@@ -49,10 +49,12 @@ export default class GardenDetail extends Component {
                         (this.props.location.pathname.includes("history"))
                             ? <React.Fragment>
                                 <h1>{thisGarden.name} (CLOSED)</h1>
+                                <div>Planted in {thisLocation.name}</div>
                                 <div className="garden-detail-dates">Created on {moment(thisGarden.dateCreated).format("MMMM DD, YYYY")} & closed on {moment(thisGarden.dateClosed).format("MMMM DD, YYYY")}</div>
                             </React.Fragment>
                             : <React.Fragment>
                                 <h1>{thisGarden.name}</h1>
+                                <div>Planted in {thisLocation.name}</div>
                                 <div className="garden-detail-dates">Created on {moment(thisGarden.dateCreated).format("MMMM DD, YYYY")}</div>
                             </React.Fragment>
                     }

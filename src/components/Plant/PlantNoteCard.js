@@ -18,7 +18,7 @@ export default class PlantNoteCard extends Component {
                 <React.Fragment key={note.id}>
                     <div className="note-card-text">
                         {note.note}
-                        <span>
+                        <div>
                             <Button onClick={this.toggleEditPlantNote}
                                 color="link">
                                 edit
@@ -28,7 +28,7 @@ export default class PlantNoteCard extends Component {
                                 color="link">
                                 delete
                             </Button>
-                        </span>
+                        </div>
                     </div>
 
                     <Modal isOpen={this.state.modal} toggle={this.toggleEditPlantNote} >

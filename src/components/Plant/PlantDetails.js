@@ -10,7 +10,7 @@ export default class PlantDetails extends Component {
         return (
             <div className="plant-details" >
                 <p className="plant-care-item">
-                    {plant.startIndoors ? "Start indoors" : "Direct sow outdoors"}
+                    {plant.startIndoors === "true" ? "Start indoors" : "Direct sow outdoors"}
                 </p>
                 <p className="plant-care-item">
                     {plant.daysUntilHarvest} Days To Maturity

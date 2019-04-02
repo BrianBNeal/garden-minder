@@ -5,7 +5,7 @@ export default class PlantCreateForm extends Component {
 
     state = {
         plantName: "",
-        startIndoors: "",
+        startIndoors: null,
         measureUnit: "",
         daysUntilHarvest: "",
         plantingDepth: "",
