@@ -11,7 +11,7 @@ export default class PlantEditForm extends Component {
         daysUntilHarvest: "",
         plantingDepth: "",
         spacing: "",
-        sunExposure: "",
+        sunExposure: null,
         plantingDateStart: "",
         plantingDateEnd: "",
         plantId: "",
@@ -78,13 +78,13 @@ export default class PlantEditForm extends Component {
                     <Row form>
                         <Col md={5}>
                             <FormGroup>
-                                <Label for="plantName">Plant Name<span style={{ color: "red", fontWeight: "bolder" }}>*</span></Label>
+                                <Label for="plantName">Plant Name</Label>
                                 <Input onChange={this.handleFieldChange}
                                     type="text"
                                     name="plantName"
                                     id="plantName"
                                     value={this.state.plantName}
-                                    placeholder="ex: San Marzano Tomatoes" />
+                                    placeholder="e.g. Tomatoes" />
                             </FormGroup>
                         </Col>
                         <Col md={3}>
@@ -108,7 +108,7 @@ export default class PlantEditForm extends Component {
                                 name="measureUnit"
                                 id="measureUnit"
                                 value={this.state.measureUnit}
-                                placeholder='ex: "pounds" or "pieces" ' />
+                                placeholder='e.g. "pounds" or "pieces" ' />
                             </FormGroup>
                         </Col>
                     </Row>
@@ -137,7 +137,7 @@ export default class PlantEditForm extends Component {
                                     name="plantingDepth"
                                     id="plantingDepth"
                                     value={this.state.plantingDepth}
-                                    placeholder='1"' />
+                                    placeholder='e.g. 1"' />
                             </FormGroup>
                         </Col>
                         <Col md={4}>
@@ -148,7 +148,7 @@ export default class PlantEditForm extends Component {
                                     name="spacing"
                                     id="spacing"
                                     value={this.state.spacing}
-                                    placeholder="2'" />
+                                    placeholder="e.g. 2'" />
                             </FormGroup>
                         </Col>
                     </Row>
@@ -204,7 +204,11 @@ export default class PlantEditForm extends Component {
                         <Col md={4}>
                             <FormGroup>
                                 <Label for="daysUntilHarvest">Days Until Harvest (estimated)</Label>
-                                <Input onChange={this.handleFieldChange} type="text" name="daysUntilHarvest" id="daysUntilHarvest" placeholder="45" />
+                                <Input onChange={this.handleFieldChange}
+                                type="text"
+                                name="daysUntilHarvest"
+                                id="daysUntilHarvest"
+                                placeholder="e.g. 45" />
                             </FormGroup>
                         </Col>
                     </Row>
