@@ -18,17 +18,21 @@ export default class PlantNoteCard extends Component {
                 <React.Fragment key={note.id}>
                     <div className="note-card-text">
                         {note.note}
-                        <div>
-                            <Button onClick={this.toggleEditPlantNote}
-                                color="link">
-                                edit
+                        {/* don't show buttons if garden is closed */
+                            (this.props.location.pathname.includes("history"))
+                                ? null
+                                : <div>
+                                    <Button onClick={this.toggleEditPlantNote}
+                                        color="link">
+                                        edit
                             </Button>
-                            |
+                                    |
                             <Button onClick={() => this.props.deletePlantNote(note.id)}
-                                color="link">
-                                delete
+                                        color="link">
+                                        delete
                             </Button>
-                        </div>
+                                </div>
+                        }
                     </div>
 
                     <Modal isOpen={this.state.modal} toggle={this.toggleEditPlantNote} >

@@ -35,19 +35,23 @@ export default class PlantCard extends Component {
                     <div className="plant-card-top">
                         <h5 className="plant-card-title">
                             {plant.name}
-                            <span>
-                            <Button onClick={() => this.props.history.push(`/plants/edit/${thisGardenPlant.id}`)}
-                                className="remove-button"
-                                color="link" >
-                                edit
+                            {/* hide buttons if garden is closed */
+                                (this.props.location.pathname.includes("history"))
+                                    ? null
+                                    : <span>
+                                        <Button onClick={() => this.props.history.push(`/plants/edit/${thisGardenPlant.id}`)}
+                                            className="remove-button"
+                                            color="link" >
+                                            edit
                             </Button>
-                            |
+                                        |
                             <Button onClick={(event) => this.remove(event, thisGardenPlant)}
-                                className="remove-button"
-                                color="link" >
-                                remove
+                                            className="remove-button"
+                                            color="link" >
+                                            remove
                             </Button>
-                            </span>
+                                    </span>
+                            }
                             <Modal isOpen={this.state.modal} toggle={this.toggleAddPlantNotes} >
                                 <PlantNoteForm
                                     toggleAddPlantNotes={this.toggleAddPlantNotes}
@@ -69,6 +73,7 @@ export default class PlantCard extends Component {
                             deletePlantNote={this.props.deletePlantNote}
                             plant={this.props.plant}
                             gardenPlant={thisGardenPlant}
+                            location={this.props.location}
                             plantNotes={this.props.plantNotes}
                             toggleAddPlantNotes={this.toggleAddPlantNotes}
                             updatePlantNote={this.props.updatePlantNote}

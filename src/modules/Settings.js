@@ -1,4 +1,4 @@
 export default {
-    // remoteURL: "http://localhost:3003"
-    remoteURL: "https://garden-minder-api.herokuapp.com/"
+    remoteURL: "http://localhost:3004"
+    // remoteURL: "https://garden-minder-api.herokuapp.com/"
 }

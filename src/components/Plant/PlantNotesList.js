@@ -13,15 +13,20 @@ export default class PlantNotesList extends Component {
             <div className="plant-notes">
                 <CardText>
                     Notes:
-                    <Button onClick={this.props.toggleAddPlantNotes}
-                        color="link">
-                        add note
+                    {/* don't show button if garden is closed */
+                        (this.props.location.pathname.includes("history"))
+                            ? null
+                            : <Button onClick={this.props.toggleAddPlantNotes}
+                                color="link">
+                                add note
                     </Button>
+                    }
                 </CardText>
                 <div className="note-card-text">Planted on {moment(this.props.gardenPlant.plantedWhen).format("MMMM DD, YYYY")}</div>
                 {!plantNotesByThisUser.length
                     ? <CardText>You have no notes about this plant yet.</CardText>
                     : <PlantNoteCard
+                        location={this.props.location}
                         plantNotes={plantNotesByThisUser}
                         plant={this.props.plant}
                         updatePlantNote={this.props.updatePlantNote}
