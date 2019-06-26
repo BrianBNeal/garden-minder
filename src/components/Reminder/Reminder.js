@@ -10,29 +10,40 @@ export default class Reminder extends Component {
     }
 
     render() {
-        const reminder = this.props.reminder
+        const reminder = this.props.reminder;
+        let checked;
+        let update;
+        if (reminder.completed) {
+            checked = true
+            update = this.completeReminder
+        }
 
         return (
             <React.Fragment>
                 <InputGroup className="reminder-card">
                     <InputGroupAddon addonType="prepend">
                         <InputGroupText className="reminder-checkbox">
-                            <Input onChange={this.completeReminder}
+                            <Input onChange={update}
                                 addon
                                 type="checkbox"
+                                checked={checked}
+                                disabled={true}
                                 aria-label="Checkbox for following reminder text" />
                         </InputGroupText>
                     </InputGroupAddon>
                     <InputGroupText className="reminder-details">
-                            <div className="reminderText">{reminder.text}</div>
-                            <div className="reminderDate">{(reminder.date) ? moment(reminder.date).format("MMMM D, YYYY") : "no date set"}</div>
+                        <div className="reminderText">{reminder.text}</div>
+                        <div className="reminderDate">{(reminder.date) ? moment(reminder.date).format("MMMM D, YYYY") : "no date set"}</div>
                     </InputGroupText>
-                    <InputGroupAddon addonType="append">
-                        <Button onClick={() => this.props.history.push(`/reminders/edit/${reminder.id}`)}
-                            color="link">
-                            edit
+                    {(this.props.location.pathname.includes("history"))
+                        ? null :
+                        <InputGroupAddon addonType="append">
+                            <Button onClick={() => this.props.history.push(`/reminders/edit/${reminder.id}`)}
+                                color="link">
+                                edit
                         </Button>
-                    </InputGroupAddon>
+                        </InputGroupAddon>
+                    }
                 </InputGroup>
             </React.Fragment>
         )
