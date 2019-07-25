@@ -18,7 +18,6 @@ export default class Login extends Component {
     this.setState(stateToChange)
   }
 
-
   handleRegister = e => {
     e.preventDefault()
     const newUserObj = {
@@ -37,7 +36,7 @@ export default class Login extends Component {
         }
       })
     } else {
-      alert("Please Fill Out Form 😬!")
+      alert("Please provide a username and password to register.")
     }
   }
 

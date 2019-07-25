@@ -17,7 +17,10 @@ export default class GardenMinder extends Component {
 
   render() {
     return <React.Fragment>
-        <IsAuth isAuthenticated={this.isAuthenticated} setAuth={this.setAuth} />
+        <IsAuth
+          isAuthenticated={this.isAuthenticated}
+          setAuth={this.setAuth}
+        />
       </React.Fragment>
   }
 }
