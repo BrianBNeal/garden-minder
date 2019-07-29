@@ -36,7 +36,7 @@ export default class GardenNotes extends Component {
 
     render() {
 
-        const {garden} = this.props
+        const { garden, location } = this.props
 
         return (
             <section id="garden-notes">
@@ -57,21 +57,21 @@ export default class GardenNotes extends Component {
                             </Form>
                             <Button onClick={() => this.updateNotes(garden)}
                                 color="secondary"
-                                 >
+                            >
                                 Done
                                 </Button>
                         </React.Fragment>
                         : <React.Fragment>
                             <pre>{garden.notes}</pre>
-                            {(this.props.location.pathname.includes("history"))
+                            {(location.pathname.includes("history"))
                                 ? null
                                 : this.props.hasOwnProperty("updateGarden")
-                                ? <Button onClick={this.toggleEditNotesMode}
-                                    color="link"
-                                     >
-                                    add/change notes
+                                    ? <Button onClick={this.toggleEditNotesMode}
+                                        color="link"
+                                    >
+                                        add/change notes
                                 </Button>
-                                : null
+                                    : null
                             }
                         </React.Fragment>
                 }

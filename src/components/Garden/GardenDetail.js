@@ -119,7 +119,7 @@ const GardenDetail = (props) => {
             />
 
             {/* hide form to add plants if garden is closed */
-                (this.props.location.pathname.includes("history"))
+                (location.pathname.includes("history"))
                     ? null
                     : <section id="garden-plant-form">
                         <GardenPlantForm
@@ -134,7 +134,7 @@ const GardenDetail = (props) => {
             }
             <section id="garden-buttons">
                 {/* hide close button if garden is already closed */
-                    (this.props.location.pathname.includes("history"))
+                    (location.pathname.includes("history"))
                         ? null
                         : <Button onClick={() => confirmClose(thisGarden)}
                             color="warning" >

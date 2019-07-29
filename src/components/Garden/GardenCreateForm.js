@@ -5,6 +5,7 @@ import moment from "moment"
 
 export default class GardenCreateForm extends Component {
 
+
     activeUserId = parseInt(sessionStorage.getItem("credentials"))
 
     state = {
@@ -50,7 +51,7 @@ export default class GardenCreateForm extends Component {
             }
 
             this.props.addGarden(newGardenObject)
-                .then(newGardenId => this.props.history.push(`/gardens/${newGardenId}`))
+            .then(newGardenId => this.props.history.push(`/gardens/${newGardenId}`))
         } else {
             window.alert("Please fill in both the name and location")
         }
@@ -61,6 +62,9 @@ export default class GardenCreateForm extends Component {
     }
 
     render() {
+
+        const {locations, history} = this.props
+
         return (
 
             <Form>
@@ -71,7 +75,7 @@ export default class GardenCreateForm extends Component {
 
                 {//conditional for showing input for new location
                     this.state.createLocationMode
-                        ? <FormGroup>
+                    ? <FormGroup>
                             <Label for="newLocation">Location</Label>
                             <Input onChange={this.handleFieldChange}
                                 type="text"
@@ -103,7 +107,7 @@ export default class GardenCreateForm extends Component {
                                 name="gardenLocation"
                                 id="gardenLocation">
                                 <option value="">--Select a location--</option>
-                                {this.props.locations.map(location =>
+                                {locations.map(location =>
                                     <option key={location.id} value={location.id}>{location.name}</option>
                                 )}
                             </Input>
@@ -121,7 +125,7 @@ export default class GardenCreateForm extends Component {
                             color="primary" >
                             Submit
                         </Button>
-                        <Button onClick={() => this.props.history.push("/")}
+                        <Button onClick={() => history.push("/")}
                             color="secondary" >
                             Cancel
                         </Button>
@@ -132,7 +136,7 @@ export default class GardenCreateForm extends Component {
                             disabled >
                             Submit
                         </Button>
-                        <Button onClick={() => this.props.history.push("/")}
+                        <Button onClick={() => history.push("/")}
                             color="secondary"
                             disabled >
                             Cancel

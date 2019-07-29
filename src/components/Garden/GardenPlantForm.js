@@ -43,6 +43,9 @@ export default class GardenPlantForm extends Component {
 
 
     render() {
+
+        const {plants, history, garden} = this.props
+
         return (
             <React.Fragment>
                 <h4>Add a plant to your garden!</h4>
@@ -53,7 +56,7 @@ export default class GardenPlantForm extends Component {
                         type="select" >
                         <option value="">--Select a plant to add--</option>
                         <option value="new">**Create a new plant**</option>
-                        {this.props.plants.map(plant =>
+                        {plants.map(plant =>
                             <option key={plant.id}
                                 value={plant.id}>
                                 {plant.name}
@@ -61,7 +64,7 @@ export default class GardenPlantForm extends Component {
                     </Input>
                     {this.state.plantSelect === "new"
                         ? <InputGroupAddon addonType="append">
-                            <Button onClick={() => this.props.history.push(`/plants/new/${this.props.garden.id}`)}
+                            <Button onClick={() => history.push(`/plants/new/${garden.id}`)}
                                 color="success" >
                                 Create a New Plant
                             </Button>

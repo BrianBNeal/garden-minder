@@ -75,6 +75,9 @@ export default class GardenEditForm extends Component {
     }
 
     render() {
+
+        const {locations, history} = this.props
+
         return (
             <React.Fragment>
                 <Form>
@@ -125,7 +128,7 @@ export default class GardenEditForm extends Component {
                                     id="gardenLocation"
                                     value={this.state.gardenLocation}>
                                     <option value="">--Select a location--</option>
-                                    {this.props.locations.map(location =>
+                                    {locations.map(location =>
                                         <option key={location.id} value={location.id}>{location.name}</option>
                                     )}
                                 </Input>
@@ -147,7 +150,7 @@ export default class GardenEditForm extends Component {
                                 color="primary" >
                                 Update
                         </Button>
-                            <Button onClick={() => this.props.history.push(`/gardens/${this.props.match.params.gardenId}`)}
+                            <Button onClick={() => history.push(`/gardens/${this.props.match.params.gardenId}`)}
                                 color="secondary" >
                                 Cancel
                         </Button>
@@ -158,7 +161,7 @@ export default class GardenEditForm extends Component {
                                 disabled >
                                 Update
                         </Button>
-                            <Button onClick={() => this.props.history.push(`/gardens/${this.props.match.params.gardenId}`)}
+                            <Button onClick={() => history.push(`/gardens/${this.props.match.params.gardenId}`)}
                                 color="secondary"
                                 disabled >
                                 Cancel
