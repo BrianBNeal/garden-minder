@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { CardText, Button, Modal } from "reactstrap"
+import { Button, Modal } from "reactstrap"
 import PlantNoteEdit from "./PlantNoteEdit"
 
 export default class PlantNoteCard extends Component {

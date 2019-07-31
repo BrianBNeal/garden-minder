@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React from "react"
 import GardenPlantForm from "./GardenPlantForm"
 import GardenNotes from "./GardenNotes"
 import PlantList from "../Plant/PlantList"
